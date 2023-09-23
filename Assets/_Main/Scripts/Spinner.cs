@@ -38,7 +38,6 @@ public class Spinner : MonoBehaviour
             10);
         yield return RotateSpinner(-_spinnerAnimationSettings.missAngle, _spinnerAnimationSettings.animationCurve, 10,
             500);
-
         yield return null;
     }
 
