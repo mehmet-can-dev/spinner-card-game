@@ -1,22 +1,12 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
-[Serializable]
-public class SpinnerAnimationSettings
-{
-    public int spinCount = 5;
-    public float startSpeed = 500;
-    public float missAngle = 10;
-    public AnimationCurve animationCurve;
-}
 
 public class SpinnerAnimation : MonoBehaviour
 {
-    
-    [SerializeField] private SpinnerAnimationSettings _spinnerAnimationSettings;
+    [SerializeField] private SpinnerAnimationData spinnerAnimationData;
 
     public void Init()
     {
@@ -32,13 +22,13 @@ public class SpinnerAnimation : MonoBehaviour
     private IEnumerator SpinnerRotationCor(int targetHole)
     {
         float targetAngle = Spinner.PERCOUNTANGLE * targetHole;
-        float targetRotateAngle = Spinner.TWOPIRAD * _spinnerAnimationSettings.spinCount + targetAngle;
+        float targetRotateAngle = Spinner.TWOPIRAD * spinnerAnimationData.spinCount + targetAngle;
 
-        yield return RotateSpinner(targetRotateAngle, _spinnerAnimationSettings.animationCurve,
-            _spinnerAnimationSettings.startSpeed, 100);
-        yield return RotateSpinner(_spinnerAnimationSettings.missAngle, _spinnerAnimationSettings.animationCurve, 100,
+        yield return RotateSpinner(targetRotateAngle, spinnerAnimationData.animationCurve,
+            spinnerAnimationData.startSpeed, 100);
+        yield return RotateSpinner(spinnerAnimationData.missAngle, spinnerAnimationData.animationCurve, 100,
             10);
-        yield return RotateSpinner(-_spinnerAnimationSettings.missAngle, _spinnerAnimationSettings.animationCurve, 10,
+        yield return RotateSpinner(-spinnerAnimationData.missAngle, spinnerAnimationData.animationCurve, 10,
             500);
         yield return null;
     }
