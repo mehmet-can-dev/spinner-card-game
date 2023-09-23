@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 246b41f247544cf688d8eadb8a9fbbe3, type: 3}
   m_Name: SpinnerContentItemCap
   m_EditorClassIdentifier: 
-  spinnerContentItemData:
-    contentId: cap
-    contentSprite: {fileID: 21300000, guid: d44ccf0790e844b45b076c05cdf41f55, type: 3}
-    tierGainList: 010000000100000001000000020000000200000002000000030000000300000003000000040000000400000004000000
-    increaseAmountAfterListEnded: 1
+  contentSprite: {fileID: 21300000, guid: d44ccf0790e844b45b076c05cdf41f55, type: 3}
+  contentId: cap
+  tierGainList: 0a000000140000001e00000028000000320000003c00000046000000500000005a00000064000000
+  increaseRatioAfterListEnded: 2

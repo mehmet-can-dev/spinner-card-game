@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-namespace _Main.Scripts.Spinner.SOs
-{
+
     [CreateAssetMenu(fileName = "SpinnerContentItemSO", menuName = "SpinnerContent/SpinnerContentItemSO", order = 0)]
-    public class SpinnerContentItemSO : ScriptableObject
+    public class SpinnerContentItemSO : SpinnerContentSO
     {
-        public SpinnerContentItemData spinnerContentItemData;
+        public List<int> tierGainList;
+        public float increaseRatioAfterListEnded;
     }
-}

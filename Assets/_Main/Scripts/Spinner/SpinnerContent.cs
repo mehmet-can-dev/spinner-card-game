@@ -9,16 +9,19 @@ public class SpinnerContent : MonoBehaviour
     private const int IMAGEMAXWIDTH = 70;
     private const int IMAGEMAXHEIGHT = 70;
 
+    private string id;
+
     [Header("References")] [SerializeField]
     private Image uiImageSpinnerContent;
 
     [SerializeField] private RectTransform uiRectSpinnerContent;
     [SerializeField] private TextMeshProUGUI uiTextSpinnerContent;
 
-    public void Init(Sprite sprite, string text)
+    public void Init(string id, Sprite sprite, string text)
     {
-        uiImageSpinnerContent.sprite = sprite;
+        this.id = id;
 
+        uiImageSpinnerContent.sprite = sprite;
 
         var widthRatio = sprite.rect.width / IMAGEMAXWIDTH;
         var heightRatio = sprite.rect.height / IMAGEMAXHEIGHT;
