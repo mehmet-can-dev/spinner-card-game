@@ -13,7 +13,5 @@ public class RewardAreaRewardUi : ContentUiBase
         this.id = id;
 
         SetSprite(sprite,IMAGEMAXHEIGHT,IMAGEMAXWIDTH);
-
-        SetText(amount);
     }
 }

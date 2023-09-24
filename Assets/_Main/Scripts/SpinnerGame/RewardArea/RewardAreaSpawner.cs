@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class RewardAreaSpawner : MonoBehaviour
@@ -33,7 +34,6 @@ public class RewardAreaSpawner : MonoBehaviour
 
     public Vector3 GetRewardUiPosition(string id)
     {
-        Debug.Log(createdRewardUiContainer[id].transform.position,createdRewardUiContainer[id].transform);
        return createdRewardUiContainer[id].transform.position;
     }
 }

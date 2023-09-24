@@ -32,6 +32,7 @@ public class RewardArea : MonoBehaviour
         {
             rewardContainer.Add(rewardItemData.itemId, rewardItemData.rewardAmount);
             rewardAreaSpawner.SpawnContent(rewardItemData);
+            rewardAreaSpawner.UpdateContent(rewardItemData);
         }
     }
 }

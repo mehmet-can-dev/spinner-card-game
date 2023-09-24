@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class SpinnerGame : MonoBehaviour
@@ -21,21 +22,25 @@ public class SpinnerGame : MonoBehaviour
         if (obj is RewardItemData rwData)
         {
             rewardArea.AdjustItem(rwData);
-            Debug.Log(rwData.ToStringBuilder());
 
-            var targetPos = rewardArea.GetRewardUiPosition(rwData.itemId);
-            CurrencyParticleController.Instance.Create(spinnerContentUi.transform.position, rwData.itemSprite,
-                rwData.rewardAmount,
-                targetPos, () => spinner.SpawnSpinner(spinnerTier, OnSpinEnded));
+            StartCoroutine(StartRewardedAnimation(spinnerContentUi, rwData));
 
             spinnerTier++;
         }
         else if (obj is BombItemData)
         {
             spinnerTier = 0;
-            Debug.Log(obj.ToStringBuilder());
             SpawnTest();
         }
+    }
+
+    private IEnumerator StartRewardedAnimation(SpinnerContentUi spinnerContentUi, RewardItemData rwData)
+    {
+        yield return new WaitForEndOfFrame();
+        var targetPos = rewardArea.GetRewardUiPosition(rwData.itemId);
+        CurrencyParticleController.Instance.Create(spinnerContentUi.transform.position, rwData.itemSprite,
+            rwData.rewardAmount,
+            targetPos, () => spinner.SpawnSpinner(spinnerTier, OnSpinEnded));
     }
 
     [ContextMenu("TestSpin")]
