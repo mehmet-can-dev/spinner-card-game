@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -11,13 +12,14 @@ public class SpinnerSpawner : MonoBehaviour
     private Image uiSpinnerImage;
 
     [Header("Project References")] [SerializeField]
-    private SpinnerContent contentPrefab;
+    private SpinnerContentUi contentUiPrefab;
 
     [SerializeField] private SpinnerSettingsSO spinnerSettingsSo;
 
     private int currentTier = 0;
 
-    private List<SpinnerContent> createdSpinnerContentUis;
+    private List<SpinnerContentUi> createdSpinnerContentUis;
+    private List<ItemData> createdItemData;
 
     public void Init()
     {
@@ -36,16 +38,65 @@ public class SpinnerSpawner : MonoBehaviour
 
         contents.Shuffle();
 
-        FillContentUIs(createdSpinnerContentUis, contents);
+        createdItemData = CalculateRewards(createdSpinnerContentUis, contents, _tier);
+
+        FillContentUIs(createdSpinnerContentUis, createdItemData);
     }
 
-    private List<SpinnerContent> InstantiateContents()
+    public ItemData GetRewardDataFromIndex(int index)
     {
-        var spinnerContents = new List<SpinnerContent>();
+        if (index >= createdSpinnerContentUis.Count)
+            Debug.LogError("Index must be lower created reward count");
+
+        return createdItemData[index];
+    }
+
+    private List<ItemData> CalculateRewards(List<SpinnerContentUi> contentUis, List<SpinnerContentSO> contentSos,
+        int tier)
+    {
+        if (contentUis.Count != contentSos.Count)
+            Debug.LogError("ContentUi count and contentSo count not match !");
+
+        var itemList = new List<ItemData>();
+
+        for (int i = 0; i < contentUis.Count; i++)
+        {
+            if (contentSos[i] is SpinnerContentItemSO itemContent)
+            {
+                var gainAmount = SpinnerUtilities.CalculateItemGainAmount(itemContent, tier);
+
+                var rwData = new RewardItemData()
+                {
+                    itemId = contentSos[i].contentId,
+                    itemSprite = contentSos[i].contentSprite,
+                    rewardAmount = gainAmount
+                };
+                
+                rwData.rewardAmount = gainAmount;
+                itemList.Add(rwData);
+            }
+            else if (contentSos[i] is SpinnerContentBombSO)
+            {
+                var bombData = new BombItemData()
+                {
+                    itemId = contentSos[i].contentId,
+                    itemSprite = contentSos[i].contentSprite,
+                };
+                
+                itemList.Add(bombData);
+            }
+        }
+
+        return itemList;
+    }
+
+    private List<SpinnerContentUi> InstantiateContents()
+    {
+        var spinnerContents = new List<SpinnerContentUi>();
         var direction = Vector3.up;
         for (int i = 0; i < SpinnerUtilities.HOLECOUNT; i++)
         {
-            var content = Instantiate(contentPrefab, transform);
+            var content = Instantiate(contentUiPrefab, transform);
             var contentOffset = Quaternion.AngleAxis(SpinnerUtilities.PERCOUNTANGLE * i, Vector3.forward) * direction *
                                 DISTANCEFROMCENTER;
             content.transform.localPosition = contentOffset;
@@ -98,32 +149,33 @@ public class SpinnerSpawner : MonoBehaviour
         return contents;
     }
 
-    private void FillContentUIs(List<SpinnerContent> contentUis, List<SpinnerContentSO> contentSos)
+    private void FillContentUIs(List<SpinnerContentUi> contentUis, List<ItemData> itemList)
     {
-        if (contentUis.Count != contentSos.Count)
-            Debug.LogError("ContentUi count and contentSo count not match !");
+        if (contentUis.Count != itemList.Count)
+            Debug.LogError("ContentUi count and itemList count not match !");
 
         for (int i = 0; i < contentUis.Count; i++)
         {
-            
-            if (contentSos[i] is SpinnerContentItemSO)
+            if (itemList[i] is RewardItemData)
             {
-                SpinnerContentItemSO itemContent = (SpinnerContentItemSO)contentSos[i];
-                contentUis[i].Init(contentSos[i].contentId, itemContent.contentSprite,
-                    itemContent.tierGainList[0].ToString());
+                var rwItem = (RewardItemData)itemList[i];
+                contentUis[i].Init(rwItem.itemId, rwItem.itemSprite, rwItem.rewardAmount.ToStringBuilder());
             }
-            else if (contentSos[i] is SpinnerContentBombSO)
+            else if (itemList[i] is BombItemData)
             {
-                SpinnerContentBombSO bombContent = (SpinnerContentBombSO)contentSos[i];
-                contentUis[i].Init(contentSos[i].contentId, bombContent.contentSprite, "");
+                var rwItem = (BombItemData)itemList[i];
+                contentUis[i].Init(rwItem.itemId, rwItem.itemSprite);
             }
-            
         }
+    }
+
+    private static void SelectContentType(List<SpinnerContentUi> contentUis, List<SpinnerContentSO> contentSos,
+        int tier, int i)
+    {
     }
 
     private void CreateSpinner(Sprite sprite)
     {
         uiSpinnerImage.sprite = sprite;
     }
-    
 }

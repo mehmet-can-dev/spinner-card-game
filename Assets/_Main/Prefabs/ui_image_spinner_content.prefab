@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4525660087352970630}
   - component: {fileID: 1899661291974447386}
   m_Layer: 5
-  m_Name: ui_iamge_spinner_content
+  m_Name: ui_image_spinner_content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

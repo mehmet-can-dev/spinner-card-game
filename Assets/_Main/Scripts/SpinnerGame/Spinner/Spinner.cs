@@ -10,20 +10,19 @@ public class Spinner : MonoBehaviour
     [SerializeField] private SpinnerSpawner _spinnerSpawner;
     [SerializeField] private SpinnerInput _spinnerInput;
 
+    private Action<ItemData> onSpinEnded;
 
-    private int currentTier = 0;
-
-    private void Start()
+    public void Init()
     {
         _spinnerAnimation.Init();
         _spinnerSpawner.Init();
         _spinnerInput.Init(OnSpinnerClicked);
-        _spinnerInput.SetActive(true);
-        SpawnSpinner(currentTier);
     }
 
-    public void SpawnSpinner(int tier)
+    public void SpawnSpinner(int tier, Action<ItemData> onSpinEnded)
     {
+        this.onSpinEnded = onSpinEnded;
+        _spinnerInput.SetActive(true);
         _spinnerSpawner.CreateTier(tier);
     }
 
@@ -36,8 +35,7 @@ public class Spinner : MonoBehaviour
 
     private void OnSpinCompleted(int targetHole)
     {
-        _spinnerInput.SetActive(true);
-        currentTier++;
-        SpawnSpinner(currentTier);
+        var item = _spinnerSpawner.GetRewardDataFromIndex(targetHole);
+        onSpinEnded?.Invoke(item);
     }
 }

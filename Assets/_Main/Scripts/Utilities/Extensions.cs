@@ -1,5 +1,6 @@
 ﻿
     using System.Collections.Generic;
+    using System.Text;
     using UnityEngine;
 
     public static class Extensions
@@ -14,5 +15,14 @@
                 var k = rng.Next(n + 1);
                 (list[k], list[n]) = (list[n], list[k]);
             }
+        }
+
+
+        
+        public static StringBuilder ToStringBuilder(this int value)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(value);
+            return sb;
         }
     }
