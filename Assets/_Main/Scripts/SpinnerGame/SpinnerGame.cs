@@ -16,12 +16,17 @@ public class SpinnerGame : MonoBehaviour
         spinner.SpawnSpinner(spinnerTier, OnSpinEnded);
     }
 
-    private void OnSpinEnded(ItemData obj)
+    private void OnSpinEnded(ItemData obj, SpinnerContentUi spinnerContentUi)
     {
         if (obj is RewardItemData rwData)
         {
             rewardArea.AdjustItem(rwData);
             Debug.Log(rwData.ToStringBuilder());
+
+            CurrencyParticleController.Instance.Create(spinnerContentUi.transform.position, rwData.itemSprite,
+                rwData.rewardAmount,
+                rewardArea.transform.position);
+
             spinnerTier++;
         }
         else if (obj is BombItemData)

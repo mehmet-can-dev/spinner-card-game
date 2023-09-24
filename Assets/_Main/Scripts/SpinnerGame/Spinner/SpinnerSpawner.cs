@@ -47,10 +47,18 @@ public class SpinnerSpawner : MonoBehaviour
 
     public ItemData GetRewardDataFromIndex(int index)
     {
-        if (index >= createdSpinnerContentUis.Count)
+        if (index >= createdItemData.Count)
             Debug.LogError("Index must be lower created reward count");
 
         return createdItemData[index];
+    }
+    
+    public SpinnerContentUi GetContentUiFromIndex(int index)
+    {
+        if (index >= createdSpinnerContentUis.Count)
+            Debug.LogError("Index must be lower created content ui count");
+
+        return createdSpinnerContentUis[index];
     }
 
     private List<ItemData> CalculateRewards(List<SpinnerContentUi> contentUis, List<SpinnerContentSO> contentSos,

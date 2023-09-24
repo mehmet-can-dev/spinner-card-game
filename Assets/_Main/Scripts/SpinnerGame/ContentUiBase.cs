@@ -43,15 +43,6 @@ public class ContentUiBase : MonoBehaviour
     {
         uiImageSpinnerContent.sprite = sprite;
 
-        var widthRatio = sprite.rect.width / maxWidth;
-        var heightRatio = sprite.rect.height / maxHeight;
-        if (widthRatio > heightRatio)
-        {
-            uiRectSpinnerContent.sizeDelta = new Vector2(maxWidth, sprite.rect.height / widthRatio);
-        }
-        else
-        {
-            uiRectSpinnerContent.sizeDelta = new Vector2(sprite.rect.width / heightRatio, maxHeight);
-        }
+        UiUtilities.SetSizeDeltaFromImageSprite(uiRectSpinnerContent, sprite, maxHeight, maxWidth);
     }
 }
