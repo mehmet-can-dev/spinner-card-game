@@ -22,7 +22,6 @@ public class SpinnerSpawner : MonoBehaviour
     public void Init()
     {
         createdSpinnerContentUis = InstantiateContents();
-        CreateTier(0);
     }
 
     public void CreateTier(int tier)
@@ -106,23 +105,19 @@ public class SpinnerSpawner : MonoBehaviour
 
         for (int i = 0; i < contentUis.Count; i++)
         {
+            
             if (contentSos[i] is SpinnerContentItemSO)
             {
                 SpinnerContentItemSO itemContent = (SpinnerContentItemSO)contentSos[i];
-
-                Debug.Log(itemContent.contentId);
                 contentUis[i].Init(contentSos[i].contentId, itemContent.contentSprite,
                     itemContent.tierGainList[0].ToString());
             }
             else if (contentSos[i] is SpinnerContentBombSO)
             {
                 SpinnerContentBombSO bombContent = (SpinnerContentBombSO)contentSos[i];
-
-                Debug.Log(bombContent.contentId);
                 contentUis[i].Init(contentSos[i].contentId, bombContent.contentSprite, "");
             }
-
-            Debug.Log(i);
+            
         }
     }
 
@@ -130,9 +125,5 @@ public class SpinnerSpawner : MonoBehaviour
     {
         uiSpinnerImage.sprite = sprite;
     }
-
-    // private SpinnerContentItemSO GetTargetContentData(int i)
-    // {
-    //     return contentHolderSo.itemContents[i];
-    // }
+    
 }

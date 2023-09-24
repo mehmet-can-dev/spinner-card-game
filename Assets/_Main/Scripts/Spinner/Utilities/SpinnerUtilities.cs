@@ -1,6 +1,7 @@
 ﻿
     using System.Collections.Generic;
     using System.Text;
+    using UnityEngine;
 
     public static class SpinnerUtilities
     {
@@ -18,5 +19,10 @@
             }
 
             return sb;
+        }
+
+        public static int SelectTargetIndex()
+        {
+            return Random.Range(0, HOLECOUNT);
         }
     }

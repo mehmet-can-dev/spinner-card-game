@@ -10,7 +10,8 @@ public class Spinner : MonoBehaviour
     [SerializeField] private SpinnerSpawner _spinnerSpawner;
     [SerializeField] private SpinnerInput _spinnerInput;
 
-    [SerializeField] private int targetHole = 0;
+
+    private int currentTier = 0;
 
     private void Start()
     {
@@ -18,16 +19,25 @@ public class Spinner : MonoBehaviour
         _spinnerSpawner.Init();
         _spinnerInput.Init(OnSpinnerClicked);
         _spinnerInput.SetActive(true);
+        SpawnSpinner(currentTier);
     }
 
     public void SpawnSpinner(int tier)
     {
-        
+        _spinnerSpawner.CreateTier(tier);
     }
 
     private void OnSpinnerClicked()
     {
         _spinnerInput.SetActive(false);
-        _spinnerAnimation.StartAnimation(targetHole, () => _spinnerInput.SetActive(true));
+        var targetHole = SpinnerUtilities.SelectTargetIndex();
+        _spinnerAnimation.StartAnimation(targetHole, () => OnSpinCompleted(targetHole));
+    }
+
+    private void OnSpinCompleted(int targetHole)
+    {
+        _spinnerInput.SetActive(true);
+        currentTier++;
+        SpawnSpinner(currentTier);
     }
 }
