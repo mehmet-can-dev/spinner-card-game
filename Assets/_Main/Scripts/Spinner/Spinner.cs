@@ -20,6 +20,11 @@ public class Spinner : MonoBehaviour
         _spinnerInput.SetActive(true);
     }
 
+    public void SpawnSpinner(int tier)
+    {
+        
+    }
+
     private void OnSpinnerClicked()
     {
         _spinnerInput.SetActive(false);

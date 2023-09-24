@@ -1,32 +1,55 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class SpinnerSpawner : MonoBehaviour
 {
-    private const float DISTANCEFROMCENTER = 100;
-    [SerializeField] private SpinnerContent contentPrefab;
+    private const float DISTANCEFROMCENTER = 150;
 
-    [FormerlySerializedAs("contentHolder")] [SerializeField]
-    private SpinnerContentHolderSO contentHolderSo;
+    [Header("Scene References")] [SerializeField]
+    private Image uiSpinnerImage;
+
+    [Header("Project References")] [SerializeField]
+    private SpinnerContent contentPrefab;
+
+    [SerializeField] private SpinnerSettingsSO spinnerSettingsSo;
+
+    private int currentTier = 0;
+
+    private List<SpinnerContent> createdSpinnerContentUis;
 
     public void Init()
     {
-        CreateChildren(0);
+        createdSpinnerContentUis = InstantiateContents();
+        CreateTier(0);
     }
 
-    private void CreateChildren(int tier)
+    public void CreateTier(int tier)
     {
-        var direction = Vector3.up;
+        var _tier = tier > spinnerSettingsSo.spinnerTypes.Count ? tier % spinnerSettingsSo.spinnerTypes.Count : tier;
 
+        var spinnerTypeSo = spinnerSettingsSo.spinnerTypes[_tier];
+
+        CreateSpinner(spinnerTypeSo.spinnerSprite);
+
+        var contents = SelectContents(spinnerTypeSo);
+
+        contents.Shuffle();
+
+        FillContentUIs(createdSpinnerContentUis, contents);
+    }
+
+    private List<SpinnerContent> InstantiateContents()
+    {
+        var spinnerContents = new List<SpinnerContent>();
+        var direction = Vector3.up;
         for (int i = 0; i < SpinnerUtilities.HOLECOUNT; i++)
         {
             var content = Instantiate(contentPrefab, transform);
             var contentOffset = Quaternion.AngleAxis(SpinnerUtilities.PERCOUNTANGLE * i, Vector3.forward) * direction *
                                 DISTANCEFROMCENTER;
-            content.transform.position =
-                transform.position + contentOffset;
+            content.transform.localPosition = contentOffset;
 
             var contentDir = contentOffset.normalized;
 
@@ -40,16 +63,76 @@ public class SpinnerSpawner : MonoBehaviour
                 content.transform.rotation = Quaternion.FromToRotation(Vector3.up, contentDir);
             }
 
+            spinnerContents.Add(content);
+        }
 
-            var targetContentData = GetTargetContentData(i);
+        return spinnerContents;
+    }
 
-            contentPrefab.Init(targetContentData.contentId, targetContentData.contentSprite,
-                targetContentData.tierGainList[tier].ToString());
+    private List<SpinnerContentSO> SelectContents(SpinnerTypeSO typeSo)
+    {
+        var contents = new List<SpinnerContentSO>();
+
+        for (int i = 0; i < typeSo.definitelyContents.Count; i++)
+        {
+            contents.Add(typeSo.definitelyContents[i]);
+        }
+
+        for (int i = 0; i < typeSo.bombContents.Count; i++)
+        {
+            contents.Add(typeSo.bombContents[i]);
+        }
+
+        var tempList = new List<SpinnerContentItemSO>(typeSo.possibilityContents);
+        var bag = new MarbleBag<SpinnerContentItemSO>(tempList);
+
+        var remainingCount = SpinnerUtilities.HOLECOUNT - contents.Count;
+
+        for (int i = 0; i < remainingCount; i++)
+        {
+            var c = bag.PickRandom();
+            contents.Add(c);
+        }
+
+        Debug.Log(SpinnerUtilities.LogContentList(contents));
+
+        return contents;
+    }
+
+    private void FillContentUIs(List<SpinnerContent> contentUis, List<SpinnerContentSO> contentSos)
+    {
+        if (contentUis.Count != contentSos.Count)
+            Debug.LogError("ContentUi count and contentSo count not match !");
+
+        for (int i = 0; i < contentUis.Count; i++)
+        {
+            if (contentSos[i] is SpinnerContentItemSO)
+            {
+                SpinnerContentItemSO itemContent = (SpinnerContentItemSO)contentSos[i];
+
+                Debug.Log(itemContent.contentId);
+                contentUis[i].Init(contentSos[i].contentId, itemContent.contentSprite,
+                    itemContent.tierGainList[0].ToString());
+            }
+            else if (contentSos[i] is SpinnerContentBombSO)
+            {
+                SpinnerContentBombSO bombContent = (SpinnerContentBombSO)contentSos[i];
+
+                Debug.Log(bombContent.contentId);
+                contentUis[i].Init(contentSos[i].contentId, bombContent.contentSprite, "");
+            }
+
+            Debug.Log(i);
         }
     }
 
-    private SpinnerContentItemSO GetTargetContentData(int i)
+    private void CreateSpinner(Sprite sprite)
     {
-        return contentHolderSo.itemContents[i];
+        uiSpinnerImage.sprite = sprite;
     }
+
+    // private SpinnerContentItemSO GetTargetContentData(int i)
+    // {
+    //     return contentHolderSo.itemContents[i];
+    // }
 }

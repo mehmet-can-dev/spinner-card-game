@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae4ae73c3f564571b754690e4f18cb06, type: 3}
+  m_Name: SpinnerType_SilverSpin
+  m_EditorClassIdentifier: 
+  id: silver_spinner
+  spinnerSprite: {fileID: 21300000, guid: a4db0d1d061d13b4ba42c583964c8225, type: 3}
+  definitelyContents:
+  - {fileID: 11400000, guid: 523c4629d6614c749bbf7b7c80c4b1e5, type: 2}
+  - {fileID: 11400000, guid: e898f5d9013e6c54caa8e78745537e47, type: 2}
+  - {fileID: 11400000, guid: 3690fc47504ac9c4bb2f68cd8b029e05, type: 2}
+  - {fileID: 11400000, guid: 6a5d71deefbefd248b9540d80a158734, type: 2}
+  possibilityContents:
+  - {fileID: 11400000, guid: f46fbb04b121e804cb8a97a3665cf9f4, type: 2}
+  - {fileID: 11400000, guid: 8ad69db519cf81e4aa18fb09544f986b, type: 2}
+  - {fileID: 11400000, guid: f53cb1856c935404aa8506c7f0546fce, type: 2}
+  - {fileID: 11400000, guid: 43a648b75c38ec94588226f547abac3c, type: 2}
+  - {fileID: 11400000, guid: 6489b96211ff29b41938152825371569, type: 2}
+  - {fileID: 11400000, guid: 0b8c20d56f94c3b428842a0d3d9a69bc, type: 2}
+  - {fileID: 11400000, guid: 547a8e40ecfb2294a87f4ff37f446c32, type: 2}
+  bombContents: []

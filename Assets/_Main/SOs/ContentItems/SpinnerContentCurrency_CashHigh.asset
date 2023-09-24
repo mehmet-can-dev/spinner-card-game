@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246b41f247544cf688d8eadb8a9fbbe3, type: 3}
+  m_Name: SpinnerContentCurrency_CashHigh
+  m_EditorClassIdentifier: 
+  contentSprite: {fileID: 21300000, guid: 1c781ffd1ede7fc48a23e251d6d60a29, type: 3}
+  contentId: cash
+  tierGainList: 280000005000000078000000a0000000c8000000f000000018010000400100006801000090010000
+  increaseRatioAfterListEnded: 2

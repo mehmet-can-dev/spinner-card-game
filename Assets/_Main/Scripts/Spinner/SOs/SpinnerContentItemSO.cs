@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-    [CreateAssetMenu(fileName = "SpinnerContentItemSO", menuName = "SpinnerContent/SpinnerContentItemSO", order = 0)]
+    [CreateAssetMenu(fileName = "SpinnerContentItemSO", menuName = "Spinner/SpinnerContent/SpinnerContentItemSO", order = 0)]
     public class SpinnerContentItemSO : SpinnerContentSO
     {
         public List<int> tierGainList;

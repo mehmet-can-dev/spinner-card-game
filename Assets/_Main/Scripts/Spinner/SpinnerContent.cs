@@ -33,8 +33,7 @@ public class SpinnerContent : MonoBehaviour
         {
             uiRectSpinnerContent.sizeDelta = new Vector2(sprite.rect.width / heightRatio, IMAGEMAXHEIGHT);
         }
-
-
+        
         uiTextSpinnerContent.SetText(text);
     }
 }

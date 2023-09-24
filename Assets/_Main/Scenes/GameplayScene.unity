@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 202398986}
   - component: {fileID: 202398985}
   m_Layer: 5
-  m_Name: ui_image_spinner
+  m_Name: ui_image_spinner_value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2032,8 +2032,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a634d7b983eebb438ba6477b76efb08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiSpinnerImage: {fileID: 202398985}
   contentPrefab: {fileID: 1899661291974447386, guid: 32cd7a2c805a9c341a319bd09fe61a65, type: 3}
-  contentHolderSo: {fileID: 11400000, guid: 154c656bb17b958448fc1679855d36f6, type: 2}
+  spinnerSettingsSo: {fileID: 11400000, guid: 484bdd553311f9d4594ab6ca5212ecda, type: 2}
 --- !u!114 &1926736216
 MonoBehaviour:
   m_ObjectHideFlags: 0
