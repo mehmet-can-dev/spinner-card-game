@@ -20,10 +20,10 @@ public class SpinnerSpawner : MonoBehaviour
     {
         var direction = Vector3.up;
 
-        for (int i = 0; i < Spinner.HOLECOUNT; i++)
+        for (int i = 0; i < SpinnerUtilities.HOLECOUNT; i++)
         {
             var content = Instantiate(contentPrefab, transform);
-            var contentOffset = Quaternion.AngleAxis(Spinner.PERCOUNTANGLE * i, Vector3.forward) * direction *
+            var contentOffset = Quaternion.AngleAxis(SpinnerUtilities.PERCOUNTANGLE * i, Vector3.forward) * direction *
                                 DISTANCEFROMCENTER;
             content.transform.position =
                 transform.position + contentOffset;

@@ -6,5 +6,5 @@ using UnityEngine;
     public class SpinnerContentHolderSO : ScriptableObject
     {
         public List<SpinnerContentItemSO> itemContents;
-        public SpinnerContentBombSO bombSo;
+        public SpinnerContentBombSO bombContent;
     }

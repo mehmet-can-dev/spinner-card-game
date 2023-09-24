@@ -12,17 +12,26 @@ public class SpinnerAnimation : MonoBehaviour
     {
     }
 
-    public void StartAnimation(Action OnComplete)
+    public void StartAnimation(int targetHole, Action onComplete)
     {
-        StartCoroutine(SpinnerRotationCor(4, OnComplete));
+        StartCoroutine(SpinnerRotationCor(targetHole, onComplete));
     }
 
-    private IEnumerator SpinnerRotationCor(int targetHole, Action OnComplete)
+    private IEnumerator SpinnerRotationCor(int targetHole, Action onComplete)
     {
-        float targetAngle = Spinner.PERCOUNTANGLE * targetHole;
-        float targetRotateAngle = Spinner.TWOPIRAD * spinnerAnimationData.spinCount + targetAngle;
+        float targetAngle = SpinnerUtilities.PERCOUNTANGLE * targetHole;
+        float targetRotateAngle = SpinnerUtilities.TWOPIRAD * spinnerAnimationData.spinCount + targetAngle;
 
-        yield return RotateSpinner(targetRotateAngle, spinnerAnimationData.animationCurve,
+
+        float currentAngle = Quaternion.Angle(Quaternion.identity, transform.rotation);
+        
+        //todo to avoid quaternion complexity
+        if (transform.eulerAngles.z < 0)
+        {
+            currentAngle += 180;
+        }
+        
+        yield return RotateSpinner(targetRotateAngle + currentAngle, spinnerAnimationData.animationCurve,
             spinnerAnimationData.startSpeed, 100);
         yield return RotateSpinner(spinnerAnimationData.missAngle, spinnerAnimationData.animationCurve, 100,
             10);
@@ -31,7 +40,7 @@ public class SpinnerAnimation : MonoBehaviour
 
         transform.rotation = Quaternion.AngleAxis(targetRotateAngle, Vector3.forward);
         yield return null;
-        OnComplete?.Invoke();
+        onComplete?.Invoke();
     }
 
     private IEnumerator RotateSpinner(float rotateAmount, AnimationCurve easeCurve, float startSpeed,

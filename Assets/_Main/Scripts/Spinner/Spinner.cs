@@ -10,10 +10,6 @@ public class Spinner : MonoBehaviour
     [SerializeField] private SpinnerSpawner _spinnerSpawner;
     [SerializeField] private SpinnerInput _spinnerInput;
 
-    public const int HOLECOUNT = 8;
-    public const float TWOPIRAD = 360;
-    public const float PERCOUNTANGLE = TWOPIRAD / HOLECOUNT;
-
     [SerializeField] private int targetHole = 0;
 
     private void Start()
@@ -27,6 +23,6 @@ public class Spinner : MonoBehaviour
     private void OnSpinnerClicked()
     {
         _spinnerInput.SetActive(false);
-        _spinnerAnimation.StartAnimation(() => _spinnerInput.SetActive(true));
+        _spinnerAnimation.StartAnimation(targetHole, () => _spinnerInput.SetActive(true));
     }
 }
