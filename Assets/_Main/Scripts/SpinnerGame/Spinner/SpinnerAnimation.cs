@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Coffee.UIEffects;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,6 +9,8 @@ public class SpinnerAnimation : MonoBehaviour
 {
     [SerializeField] private SpinnerAnimationData spinnerAnimationData;
 
+    [SerializeField] private UIShiny uiShiny;
+    
     public void Init()
     {
     }
@@ -19,6 +22,7 @@ public class SpinnerAnimation : MonoBehaviour
 
     private IEnumerator SpinnerRotationCor(int targetHole, Action onComplete)
     {
+        uiShiny.Stop();
         float targetAngle = SpinnerUtilities.PERCOUNTANGLE * targetHole;
         float targetRotateAngle = SpinnerUtilities.TWOPIRAD * spinnerAnimationData.spinCount + targetAngle;
         
@@ -31,6 +35,7 @@ public class SpinnerAnimation : MonoBehaviour
 
         transform.rotation = Quaternion.AngleAxis(targetRotateAngle, Vector3.forward);
         yield return null;
+        uiShiny.Play();
         onComplete?.Invoke();
     }
 

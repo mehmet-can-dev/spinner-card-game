@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 202398984}
   - component: {fileID: 202398986}
   - component: {fileID: 202398985}
+  - component: {fileID: 202398987}
   m_Layer: 5
   m_Name: ui_image_spinner_value
   m_TagString: Untagged
@@ -366,6 +367,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202398983}
   m_CullTransparentMesh: 1
+--- !u!114 &202398987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202398983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectFactor: 0.526
+  m_Width: 0.112
+  m_Rotation: -50
+  m_Softness: 1
+  m_Brightness: 1
+  m_Gloss: 1
+  m_EffectArea: 0
+  m_Player:
+    play: 1
+    initialPlayDelay: 0
+    duration: 3
+    loop: 1
+    loopDelay: 1
+    updateMode: 0
 --- !u!1 &345971955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,6 +1704,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  uiShiny: {fileID: 202398987}
 --- !u!114 &1926736217
 MonoBehaviour:
   m_ObjectHideFlags: 0
