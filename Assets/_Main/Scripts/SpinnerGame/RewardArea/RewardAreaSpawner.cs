@@ -18,7 +18,7 @@ public class RewardAreaSpawner : MonoBehaviour
         var content = Instantiate(rewardAreaRewardUiPrefab, contentParent);
 
         content.Init(rewardItemData.itemId, rewardItemData.itemSprite,
-            rewardItemData.rewardAmount.ToStringBuilder());
+            rewardItemData.rewardAmount);
         createdRewardUiContainer.Add(rewardItemData.itemId, content);
     }
 
@@ -29,6 +29,6 @@ public class RewardAreaSpawner : MonoBehaviour
             Debug.LogError("Reward Container Init Error");
 
         var content = createdRewardUiContainer[rewardItemData.itemId];
-        content.SetText(rewardItemData.rewardAmount.ToStringBuilder());
+        content.SetText(rewardItemData.rewardAmount);
     }
 }

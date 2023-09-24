@@ -11,9 +11,9 @@
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("itemID :");
-            sb.Append(itemId);
-            sb.AppendLine("itemSprite :");
-            sb.Append(itemSprite.name);
+            sb.AppendLine(itemId);
+            sb.Append(" itemSprite :");
+            sb.AppendLine(itemSprite.name);
             return sb;
         }
     }

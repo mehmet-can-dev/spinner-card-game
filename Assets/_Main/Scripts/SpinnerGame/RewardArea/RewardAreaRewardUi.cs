@@ -8,12 +8,12 @@ public class RewardAreaRewardUi : ContentUiBase
     private const int IMAGEMAXWIDTH = 100;
     private const int IMAGEMAXHEIGHT = 100;
     
-    public void Init(string id, Sprite sprite, StringBuilder sb = null)
+    public void Init(string id, Sprite sprite,int? amount)
     {
         this.id = id;
 
         SetSprite(sprite,IMAGEMAXHEIGHT,IMAGEMAXWIDTH);
 
-        SetText(sb);
+        SetText(amount);
     }
 }

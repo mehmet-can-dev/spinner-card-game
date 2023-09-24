@@ -9,7 +9,7 @@ public class RewardItemData : ItemData
     {
         var sb = base.ToStringBuilder();
 
-        sb.AppendLine("rewardAmount :");
+        sb.Append("rewardAmount :");
         sb.Append(rewardAmount);
 
         return sb;

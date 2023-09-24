@@ -8,7 +8,7 @@ public static class SpinnerUtilities
     public const float TWOPIRAD = 360;
     public const float PERCOUNTANGLE = TWOPIRAD / HOLECOUNT;
 
-    public static StringBuilder LogContentList(List<SpinnerContentSO> spinnerContents)
+    public static void LogContentList(List<SpinnerContentSO> spinnerContents)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -17,7 +17,7 @@ public static class SpinnerUtilities
             sb.AppendLine(spinnerContents[i].contentId);
         }
 
-        return sb;
+        Debug.Log(sb);
     }
 
     public static int SelectTargetIndex()

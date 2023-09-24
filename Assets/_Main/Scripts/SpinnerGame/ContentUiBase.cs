@@ -4,53 +4,54 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ContentUiBase : MonoBehaviour
+{
+    protected string id;
+
+    private const int IMAGEMAXWIDTH = 50;
+    private const int IMAGEMAXHEIGHT = 50;
+    private const char PREFIX = 'X';
+
+    [Header("References")] [SerializeField]
+    private Image uiImageSpinnerContent;
+
+    [SerializeField] private RectTransform uiRectSpinnerContent;
+    [SerializeField] private TextMeshProUGUI uiTextSpinnerContent;
+
+    public void Init(string id, Sprite sprite, int? amount)
     {
-        protected string id;
+        this.id = id;
 
-        private const int IMAGEMAXWIDTH = 50;
-        private const int IMAGEMAXHEIGHT = 50;
-        
-        [Header("References")] [SerializeField]
-        private Image uiImageSpinnerContent;
+        SetSprite(sprite, IMAGEMAXHEIGHT, IMAGEMAXWIDTH);
 
-        [SerializeField] private RectTransform uiRectSpinnerContent;
-        [SerializeField] private TextMeshProUGUI uiTextSpinnerContent;
+        SetText(amount);
+    }
 
-        public void Init(string id, Sprite sprite, StringBuilder sb = null)
+    public virtual void SetText(int? value)
+    {
+        if (value == null)
         {
-            this.id = id;
-
-            SetSprite(sprite,IMAGEMAXHEIGHT,IMAGEMAXWIDTH);
-
-            SetText(sb);
+            uiTextSpinnerContent.gameObject.SetActive(false);
         }
-
-        public virtual void SetText(StringBuilder sb)
+        else
         {
-            if (sb == null)
-            {
-                uiTextSpinnerContent.gameObject.SetActive(false);
-            }
-            else
-            {
-                uiTextSpinnerContent.gameObject.SetActive(true);
-                uiTextSpinnerContent.SetText(sb);
-            }
-        }
-
-        protected virtual void SetSprite(Sprite sprite,int maxHeight,int maxWidth)
-        {
-            uiImageSpinnerContent.sprite = sprite;
-
-            var widthRatio = sprite.rect.width / maxWidth;
-            var heightRatio = sprite.rect.height / maxHeight;
-            if (widthRatio > heightRatio)
-            {
-                uiRectSpinnerContent.sizeDelta = new Vector2(maxWidth, sprite.rect.height / widthRatio);
-            }
-            else
-            {
-                uiRectSpinnerContent.sizeDelta = new Vector2(sprite.rect.width / heightRatio, maxHeight);
-            }
+            uiTextSpinnerContent.gameObject.SetActive(true);
+            uiTextSpinnerContent.SetText(PREFIX + value.Value.FormatNumber());
         }
     }
+
+    protected virtual void SetSprite(Sprite sprite, int maxHeight, int maxWidth)
+    {
+        uiImageSpinnerContent.sprite = sprite;
+
+        var widthRatio = sprite.rect.width / maxWidth;
+        var heightRatio = sprite.rect.height / maxHeight;
+        if (widthRatio > heightRatio)
+        {
+            uiRectSpinnerContent.sizeDelta = new Vector2(maxWidth, sprite.rect.height / widthRatio);
+        }
+        else
+        {
+            uiRectSpinnerContent.sizeDelta = new Vector2(sprite.rect.width / heightRatio, maxHeight);
+        }
+    }
+}

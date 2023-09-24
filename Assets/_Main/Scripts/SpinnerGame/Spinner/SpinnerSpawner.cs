@@ -38,6 +38,8 @@ public class SpinnerSpawner : MonoBehaviour
 
         contents.Shuffle();
 
+     SpinnerUtilities.LogContentList(contents);
+        
         createdItemData = CalculateRewards(createdSpinnerContentUis, contents, _tier);
 
         FillContentUIs(createdSpinnerContentUis, createdItemData);
@@ -97,7 +99,7 @@ public class SpinnerSpawner : MonoBehaviour
         for (int i = 0; i < SpinnerUtilities.HOLECOUNT; i++)
         {
             var content = Instantiate(contentUiPrefab, transform);
-            var contentOffset = Quaternion.AngleAxis(SpinnerUtilities.PERCOUNTANGLE * i, Vector3.forward) * direction *
+            var contentOffset = Quaternion.AngleAxis(SpinnerUtilities.PERCOUNTANGLE * i, Vector3.forward*-1) * direction *
                                 DISTANCEFROMCENTER;
             content.transform.localPosition = contentOffset;
 
@@ -144,7 +146,7 @@ public class SpinnerSpawner : MonoBehaviour
             contents.Add(c);
         }
 
-        Debug.Log(SpinnerUtilities.LogContentList(contents));
+       // Debug.Log(SpinnerUtilities.LogContentList(contents));
 
         return contents;
     }
@@ -159,7 +161,7 @@ public class SpinnerSpawner : MonoBehaviour
             if (itemList[i] is RewardItemData)
             {
                 var rwItem = (RewardItemData)itemList[i];
-                contentUis[i].Init(rwItem.itemId, rwItem.itemSprite, rwItem.rewardAmount.ToStringBuilder());
+                contentUis[i].Init(rwItem.itemId, rwItem.itemSprite, rwItem.rewardAmount);
             }
             else if (itemList[i] is BombItemData)
             {
