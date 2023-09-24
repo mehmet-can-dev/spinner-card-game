@@ -23,9 +23,10 @@ public class SpinnerGame : MonoBehaviour
             rewardArea.AdjustItem(rwData);
             Debug.Log(rwData.ToStringBuilder());
 
+            var targetPos = rewardArea.GetRewardUiPosition(rwData.itemId);
             CurrencyParticleController.Instance.Create(spinnerContentUi.transform.position, rwData.itemSprite,
                 rwData.rewardAmount,
-                rewardArea.transform.position);
+                targetPos, () => spinner.SpawnSpinner(spinnerTier, OnSpinEnded));
 
             spinnerTier++;
         }
@@ -33,6 +34,7 @@ public class SpinnerGame : MonoBehaviour
         {
             spinnerTier = 0;
             Debug.Log(obj.ToStringBuilder());
+            SpawnTest();
         }
     }
 

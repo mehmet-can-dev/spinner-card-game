@@ -21,17 +21,8 @@ public class SpinnerAnimation : MonoBehaviour
     {
         float targetAngle = SpinnerUtilities.PERCOUNTANGLE * targetHole;
         float targetRotateAngle = SpinnerUtilities.TWOPIRAD * spinnerAnimationData.spinCount + targetAngle;
-
-
-        float currentAngle = Quaternion.Angle(Quaternion.identity, transform.rotation);
         
-        //todo to avoid quaternion complexity
-        if (transform.eulerAngles.z < 0)
-        {
-            currentAngle += 180;
-        }
-        
-        yield return RotateSpinner(targetRotateAngle + currentAngle, spinnerAnimationData.animationCurve,
+        yield return RotateSpinner(targetRotateAngle, spinnerAnimationData.animationCurve,
             spinnerAnimationData.startSpeed, 100);
         yield return RotateSpinner(spinnerAnimationData.missAngle, spinnerAnimationData.animationCurve, 100,
             10);

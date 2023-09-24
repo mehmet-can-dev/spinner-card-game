@@ -21,8 +21,7 @@ public class RewardAreaSpawner : MonoBehaviour
             rewardItemData.rewardAmount);
         createdRewardUiContainer.Add(rewardItemData.itemId, content);
     }
-
-
+    
     public void UpdateContent(RewardItemData rewardItemData)
     {
         if (!createdRewardUiContainer.ContainsKey(rewardItemData.itemId))
@@ -30,5 +29,11 @@ public class RewardAreaSpawner : MonoBehaviour
 
         var content = createdRewardUiContainer[rewardItemData.itemId];
         content.SetText(rewardItemData.rewardAmount);
+    }
+
+    public Vector3 GetRewardUiPosition(string id)
+    {
+        Debug.Log(createdRewardUiContainer[id].transform.position,createdRewardUiContainer[id].transform);
+       return createdRewardUiContainer[id].transform.position;
     }
 }

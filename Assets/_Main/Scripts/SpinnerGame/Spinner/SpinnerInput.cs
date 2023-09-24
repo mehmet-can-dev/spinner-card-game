@@ -29,7 +29,6 @@ public class SpinnerInput : MonoBehaviour, IPointerClickHandler
     public void SetActive(bool active)
     {
         isActive = active;
-        spinButtonObject.transform.rotation = Quaternion.identity;
         spinButtonObject.SetActive(active);
     }
 }

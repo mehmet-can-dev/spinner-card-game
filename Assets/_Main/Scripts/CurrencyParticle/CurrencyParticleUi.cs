@@ -16,8 +16,9 @@ public class CurrencyParticleUi : MonoBehaviour
     {
     }
 
-    public void FetchData(Sprite sprite)
+    public void FetchData(Vector3 pos, Sprite sprite)
     {
+        imgRect.transform.position = pos;
         imgCurrency.sprite = sprite;
         UiUtilities.SetSizeDeltaFromImageSprite(imgRect, sprite, IMAGEMAXHEIGHT, IMAGEMAXWIDTH);
     }

@@ -38,8 +38,8 @@ public class SpinnerSpawner : MonoBehaviour
 
         contents.Shuffle();
 
-     SpinnerUtilities.LogContentList(contents);
-        
+        SpinnerUtilities.LogContentList(contents);
+
         createdItemData = CalculateRewards(createdSpinnerContentUis, contents, _tier);
 
         FillContentUIs(createdSpinnerContentUis, createdItemData);
@@ -52,7 +52,7 @@ public class SpinnerSpawner : MonoBehaviour
 
         return createdItemData[index];
     }
-    
+
     public SpinnerContentUi GetContentUiFromIndex(int index)
     {
         if (index >= createdSpinnerContentUis.Count)
@@ -81,7 +81,7 @@ public class SpinnerSpawner : MonoBehaviour
                     itemSprite = contentSos[i].contentSprite,
                     rewardAmount = gainAmount
                 };
-                
+
                 rwData.rewardAmount = gainAmount;
                 itemList.Add(rwData);
             }
@@ -92,7 +92,7 @@ public class SpinnerSpawner : MonoBehaviour
                     itemId = contentSos[i].contentId,
                     itemSprite = contentSos[i].contentSprite,
                 };
-                
+
                 itemList.Add(bombData);
             }
         }
@@ -107,7 +107,8 @@ public class SpinnerSpawner : MonoBehaviour
         for (int i = 0; i < SpinnerUtilities.HOLECOUNT; i++)
         {
             var content = Instantiate(contentUiPrefab, transform);
-            var contentOffset = Quaternion.AngleAxis(SpinnerUtilities.PERCOUNTANGLE * i, Vector3.forward*-1) * direction *
+            var contentOffset = Quaternion.AngleAxis(SpinnerUtilities.PERCOUNTANGLE * i, Vector3.forward * -1) *
+                                direction *
                                 DISTANCEFROMCENTER;
             content.transform.localPosition = contentOffset;
 
@@ -154,7 +155,7 @@ public class SpinnerSpawner : MonoBehaviour
             contents.Add(c);
         }
 
-       // Debug.Log(SpinnerUtilities.LogContentList(contents));
+        // Debug.Log(SpinnerUtilities.LogContentList(contents));
 
         return contents;
     }
@@ -187,5 +188,6 @@ public class SpinnerSpawner : MonoBehaviour
     private void CreateSpinner(Sprite sprite)
     {
         uiSpinnerImage.sprite = sprite;
+        transform.rotation = Quaternion.identity;
     }
 }

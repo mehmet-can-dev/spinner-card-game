@@ -20,7 +20,7 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
     private readonly List<CurrencyParticleUi> activeCurrencyParticles = new();
 
     private readonly Queue<CurrencyParticleUi> pooledCurrencyParticles = new();
-    
+
     private void Start()
     {
         for (int i = 0; i < maxCount; i++)
@@ -50,7 +50,7 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
         for (var i = 0; i < spawnCount; i++)
         {
             var currencyParticle = pooledCurrencyParticles.Dequeue();
-            currencyParticle.FetchData(sprite);
+            currencyParticle.FetchData(spawnPos, sprite);
             currencyParticle.gameObject.SetActive(true);
 
             var rndDir = Random.insideUnitSphere * force;
@@ -66,7 +66,7 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
                     activeCurrencyParticles.Remove(currencyParticle);
                     pooledCurrencyParticles.Enqueue(currencyParticle);
                     collectAction?.Invoke();
-                    //currencyParticle.gameObject.SetActive(false);
+                    currencyParticle.gameObject.SetActive(false);
                 }));
 
             activeCurrencyParticles.Add(currencyParticle);

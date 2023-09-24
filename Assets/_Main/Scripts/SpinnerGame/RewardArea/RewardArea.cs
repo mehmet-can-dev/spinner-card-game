@@ -12,6 +12,11 @@ public class RewardArea : MonoBehaviour
     {
     }
 
+    public Vector3 GetRewardUiPosition(string id)
+    {
+        return rewardAreaSpawner.GetRewardUiPosition(id);
+    }
+
     public void AdjustItem(RewardItemData rewardItemData)
     {
         if (rewardContainer == null)
