@@ -63,6 +63,7 @@ MonoBehaviour:
   uiImageSpinnerContent: {fileID: 5212520738017766800}
   uiRectSpinnerContent: {fileID: 2265624318438047491}
   uiTextSpinnerContent: {fileID: 6700835408044060129}
+  openingAnimationSettings: {fileID: 11400000, guid: 44b56b8683904794fbe438c5fbbccb83, type: 2}
 --- !u!1 &7034062172288781805
 GameObject:
   m_ObjectHideFlags: 0

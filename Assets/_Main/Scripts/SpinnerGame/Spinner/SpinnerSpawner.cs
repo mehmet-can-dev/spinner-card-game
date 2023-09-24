@@ -177,6 +177,8 @@ public class SpinnerSpawner : MonoBehaviour
                 var rwItem = (BombItemData)itemList[i];
                 contentUis[i].Init(rwItem.itemId, rwItem.itemSprite);
             }
+
+            contentUis[i].StartOpeningAnimation();
         }
     }
 
