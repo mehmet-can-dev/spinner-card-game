@@ -7,28 +7,29 @@ public class SpinnerGame : MonoBehaviour
     [SerializeField] private SpinnerGameNavigator spinnerGameNavigator;
     [SerializeField] private Spinner spinner;
     [SerializeField] private RewardArea rewardArea;
+    [SerializeField] private TierArea tierArea;
 
-    private int spinnerTier = 0;
 
     private void Start()
     {
         spinner.Init();
         rewardArea.Init();
         spinnerGameNavigator.Init();
+        tierArea.Init();
 
-        spinner.SpawnSpinner(spinnerTier, OnSpinEnded);
+        spinner.SpawnSpinner(tierArea.CurrentTier, OnSpinEnded);
     }
 
     private void OnSpinEnded(ItemData obj, SpinnerContentUi spinnerContentUi)
     {
         if (obj is RewardItemData rwData)
         {
-            spinnerGameNavigator.NavigateRewards(rewardArea,rwData, spinnerContentUi,SpawnTest);
-            spinnerTier++;
+            spinnerGameNavigator.NavigateRewards(rewardArea, rwData, spinnerContentUi, SpawnTest);
+            tierArea.IncreaseTier();
         }
         else if (obj is BombItemData)
         {
-            spinnerTier = 0;
+            tierArea.ResetTier();
             SpawnTest();
         }
     }
@@ -37,6 +38,6 @@ public class SpinnerGame : MonoBehaviour
     [ContextMenu("TestSpin")]
     private void SpawnTest()
     {
-        spinner.SpawnSpinner(spinnerTier, OnSpinEnded);
+        spinner.SpawnSpinner(tierArea.CurrentTier, OnSpinEnded);
     }
 }
