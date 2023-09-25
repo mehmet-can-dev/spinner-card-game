@@ -9,14 +9,12 @@ public class SpinnerGame : MonoBehaviour
     [SerializeField] private RewardArea rewardArea;
     [SerializeField] private TierArea tierArea;
 
-
     private void Start()
     {
         spinner.Init();
         rewardArea.Init();
         spinnerGameNavigator.Init();
         tierArea.Init();
-
         spinner.SpawnSpinner(tierArea.CurrentTier, OnSpinEnded);
     }
 
@@ -33,8 +31,7 @@ public class SpinnerGame : MonoBehaviour
             SpawnTest();
         }
     }
-
-
+    
     [ContextMenu("TestSpin")]
     private void SpawnTest()
     {

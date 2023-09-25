@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class TierAreaFiller : MonoBehaviour
 {
-    [SerializeField] private List<TierAreaZoneUi> zones;
-    [SerializeField] private TierAreaZoneUi selectedZone;
+    private List<TierAreaZoneUi> zones;
+    private TierAreaZoneUi selectedRightZone;
+    private TierAreaZoneUi selectedLeftZone;
 
-    public void Init()
+    public void Init(List<TierAreaZoneUi> zones, TierAreaZoneUi selectedRightZone,TierAreaZoneUi selectedLeftZone )
     {
+        this.zones = zones;
+        this.selectedRightZone = selectedRightZone;
+        this.selectedLeftZone = selectedLeftZone;
     }
 
     public void FillZones(int currentTier)
@@ -24,6 +28,7 @@ public class TierAreaFiller : MonoBehaviour
                 zones[i].Init(value.ToString());
         }
 
-        selectedZone.Init(currentTier.ToString());
+        selectedLeftZone.Init(currentTier.ToString());
+        selectedRightZone.Init(currentTier.ToString());
     }
 }

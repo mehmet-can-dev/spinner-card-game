@@ -23,14 +23,14 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
 
     private void Start()
     {
-        for (int i = 0; i < 30; i++)
+        // possibility of being called too many times instantiate max count * 2 
+        for (int i = 0; i < MAXCOUNT * 2; i++)
         {
             var currencyParticle = Instantiate(currencyParticleUiPrefab, parent);
             currencyParticle.gameObject.SetActive(false);
             pooledCurrencyParticles.Enqueue(currencyParticle);
         }
     }
-
 
     public void Create(CurrencyCreateData currencyCreateData, Action perIconReached = null,
         Action onComplete = null)
@@ -61,7 +61,8 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
 
             if (i == currencyCreateData.spawnCount - 1)
             {
-                yield return StartCoroutine(currencyParticle.AddForce(currencyCreateData.spawnPos, rndDir, movementSpeed, collectDelay,
+                yield return StartCoroutine(currencyParticle.AddForce(currencyCreateData.spawnPos, rndDir,
+                    movementSpeed, collectDelay,
                     currencyCreateData.targetPos, 0.7f,
                     ease, rndRot,
                     0.7f, () =>
@@ -74,7 +75,8 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
             }
             else
             {
-                StartCoroutine(currencyParticle.AddForce(currencyCreateData.spawnPos, rndDir, movementSpeed, collectDelay,
+                StartCoroutine(currencyParticle.AddForce(currencyCreateData.spawnPos, rndDir, movementSpeed,
+                    collectDelay,
                     currencyCreateData.targetPos, 0.7f,
                     ease, rndRot,
                     0.7f, () =>
@@ -85,13 +87,12 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
                         currencyParticle.gameObject.SetActive(false);
                     }));
             }
-           
 
             activeCurrencyParticles.Add(currencyParticle);
         }
 
         yield return new WaitForSeconds(0.1f);
-        
+
         onComplete?.Invoke();
     }
 
