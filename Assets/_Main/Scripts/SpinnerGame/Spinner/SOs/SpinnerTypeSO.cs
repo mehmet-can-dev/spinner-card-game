@@ -6,6 +6,7 @@ public class SpinnerTypeSO : ScriptableObject
 {
     public string id;
     public Sprite spinnerSprite;
+    public Sprite indicatorSprite;
 
     public List<SpinnerContentItemSO> definitelyContents;
     public List<SpinnerContentItemSO> possibilityContents;

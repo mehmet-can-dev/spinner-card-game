@@ -15,7 +15,7 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
 
     [SerializeField] private Transform parent;
 
-    [SerializeField] private int maxCount = 15;
+    public const int MAXCOUNT = 15;
 
     private readonly List<CurrencyParticleUi> activeCurrencyParticles = new();
 
@@ -23,7 +23,7 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
 
     private void Start()
     {
-        for (int i = 0; i < maxCount; i++)
+        for (int i = 0; i < MAXCOUNT; i++)
         {
             var currencyParticle = Instantiate(currencyParticleUiPrefab, parent);
             currencyParticle.gameObject.SetActive(false);
@@ -31,26 +31,26 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
         }
     }
 
-    public void Create(Vector2 spawnPos, Sprite sprite, int spawnCount, Vector3 targetPos,
+
+    public void Create(CurrencyCreateData currencyCreateData, Action perIconReached = null,
         Action onComplete = null)
     {
         StartCoroutine(
-            CreateCurrency(spawnPos, sprite, spawnCount, 150, Ease.Linear, null, targetPos, 0, 0.5f, 0, onComplete));
+            CreateCurrency(currencyCreateData, 150, Ease.Linear, perIconReached, 0, 0.5f, onComplete));
     }
 
-    private IEnumerator CreateCurrency(Vector2 spawnPos, Sprite sprite, int spawnCount, float force, Ease ease,
-        Action collectAction, Vector3 targetPos, float collectDelay = 0f, float movementSpeed = 0.5f,
-        float createSpeed = 0f,
+    private IEnumerator CreateCurrency(CurrencyCreateData currencyCreateData, float force, Ease ease,
+        Action collectAction, float collectDelay = 0f, float movementSpeed = 0.5f,
         Action onComplete = null)
     {
         yield return new WaitForSeconds(0.1f);
 
-        spawnCount = spawnCount > maxCount ? maxCount : spawnCount;
+        currencyCreateData.spawnCount = Mathf.Min(currencyCreateData.spawnCount, MAXCOUNT);
 
-        for (var i = 0; i < spawnCount; i++)
+        for (var i = 0; i < currencyCreateData.spawnCount; i++)
         {
             var currencyParticle = pooledCurrencyParticles.Dequeue();
-            currencyParticle.FetchData(spawnPos, sprite);
+            currencyParticle.FetchData(currencyCreateData.spawnPos, currencyCreateData.sprite);
             currencyParticle.gameObject.SetActive(true);
 
             var rndDir = Random.insideUnitSphere * force;
@@ -59,19 +59,39 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
             rndRot.y = 0;
             rndRot.x = 0;
 
-            StartCoroutine(currencyParticle.AddForce(spawnPos, rndDir, movementSpeed, collectDelay, targetPos, 0.7f,
-                ease, rndRot,
-                0.7f, () =>
-                {
-                    activeCurrencyParticles.Remove(currencyParticle);
-                    pooledCurrencyParticles.Enqueue(currencyParticle);
-                    collectAction?.Invoke();
-                    currencyParticle.gameObject.SetActive(false);
-                }));
+            if (i == currencyCreateData.spawnCount - 1)
+            {
+                yield return StartCoroutine(currencyParticle.AddForce(currencyCreateData.spawnPos, rndDir, movementSpeed, collectDelay,
+                    currencyCreateData.targetPos, 0.7f,
+                    ease, rndRot,
+                    0.7f, () =>
+                    {
+                        activeCurrencyParticles.Remove(currencyParticle);
+                        pooledCurrencyParticles.Enqueue(currencyParticle);
+                        collectAction?.Invoke();
+                        currencyParticle.gameObject.SetActive(false);
+                    }));
+            }
+            else
+            {
+                StartCoroutine(currencyParticle.AddForce(currencyCreateData.spawnPos, rndDir, movementSpeed, collectDelay,
+                    currencyCreateData.targetPos, 0.7f,
+                    ease, rndRot,
+                    0.7f, () =>
+                    {
+                        activeCurrencyParticles.Remove(currencyParticle);
+                        pooledCurrencyParticles.Enqueue(currencyParticle);
+                        collectAction?.Invoke();
+                        currencyParticle.gameObject.SetActive(false);
+                    }));
+            }
+           
 
             activeCurrencyParticles.Add(currencyParticle);
         }
 
+        yield return new WaitForSeconds(0.1f);
+        
         onComplete?.Invoke();
     }
 

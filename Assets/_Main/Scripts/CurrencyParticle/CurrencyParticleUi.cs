@@ -38,14 +38,14 @@ public class CurrencyParticleUi : MonoBehaviour
         transform.DORotate(targetRotate, targetRotateDuration)
             .SetEase(Ease.Unset);
         transform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
-        
+
         yield return new WaitForSeconds(movementDuration);
 
         transform.DORotate(Vector3.zero, targetRotateDuration)
             .SetEase(Ease.Unset);
-        transform.DOMove(targetPos, targetMovementDuration)
+        yield return transform.DOMove(targetPos, targetMovementDuration)
             .SetEase(targetMovementEase)
-            .OnComplete(() => { collectAction?.Invoke(); });
+            .OnComplete(() => { collectAction?.Invoke(); }).WaitForCompletion();
     }
 
     public void FinishSequence()

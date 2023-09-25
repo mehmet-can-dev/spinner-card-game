@@ -18,18 +18,17 @@ public class RewardAreaSpawner : MonoBehaviour
 
         var content = Instantiate(rewardAreaRewardUiPrefab, contentParent);
 
-        content.Init(rewardItemData.itemId, rewardItemData.itemSprite,
-            rewardItemData.rewardAmount);
+        content.Init(rewardItemData.itemId, rewardItemData.itemSprite);
         createdRewardUiContainer.Add(rewardItemData.itemId, content);
     }
     
-    public void UpdateContent(RewardItemData rewardItemData)
+    public void UpdateContent(string id, int amount)
     {
-        if (!createdRewardUiContainer.ContainsKey(rewardItemData.itemId))
+        if (!createdRewardUiContainer.ContainsKey(id))
             Debug.LogError("Reward Container Init Error");
 
-        var content = createdRewardUiContainer[rewardItemData.itemId];
-        content.SetText(rewardItemData.rewardAmount);
+        var content = createdRewardUiContainer[id];
+        content.SetText(amount);
     }
 
     public Vector3 GetRewardUiPosition(string id)

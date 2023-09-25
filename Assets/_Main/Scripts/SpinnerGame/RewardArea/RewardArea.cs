@@ -17,22 +17,40 @@ public class RewardArea : MonoBehaviour
         return rewardAreaSpawner.GetRewardUiPosition(id);
     }
 
-    public void AdjustItem(RewardItemData rewardItemData)
+    public bool IsRewardedCreated(string id)
+    {
+        if (rewardContainer == null)
+            return false;
+
+        return rewardContainer.ContainsKey(id);
+    }
+
+    public void UpdateItem(string id, int amount)
+    {
+        if (rewardContainer.ContainsKey(id))
+        {
+            rewardContainer[id] += amount;
+            rewardAreaSpawner.UpdateContent(id, rewardContainer[id]);
+        }
+        else
+        {
+            Debug.LogError("Rewarded Item Data Not Created");
+        }
+    }
+
+    public void AddItem(RewardItemData rewardItemData)
     {
         if (rewardContainer == null)
             rewardContainer = new Dictionary<string, int>();
 
-        if (rewardContainer.ContainsKey(rewardItemData.itemId))
+        if (!rewardContainer.ContainsKey(rewardItemData.itemId))
         {
-            rewardContainer[rewardItemData.itemId] += rewardItemData.rewardAmount;
-            rewardItemData.rewardAmount = rewardContainer[rewardItemData.itemId];
-            rewardAreaSpawner.UpdateContent(rewardItemData);
+            rewardContainer.Add(rewardItemData.itemId, 0);
+            rewardAreaSpawner.SpawnContent(rewardItemData);
         }
         else
         {
-            rewardContainer.Add(rewardItemData.itemId, rewardItemData.rewardAmount);
-            rewardAreaSpawner.SpawnContent(rewardItemData);
-            rewardAreaSpawner.UpdateContent(rewardItemData);
+            Debug.LogError("Rewarded Item Data Already Created");
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpinnerGame : MonoBehaviour
 {
+    [SerializeField] private SpinnerGameNavigator spinnerGameNavigator;
     [SerializeField] private Spinner spinner;
     [SerializeField] private RewardArea rewardArea;
 
@@ -13,6 +14,7 @@ public class SpinnerGame : MonoBehaviour
     {
         spinner.Init();
         rewardArea.Init();
+        spinnerGameNavigator.Init();
 
         spinner.SpawnSpinner(spinnerTier, OnSpinEnded);
     }
@@ -21,10 +23,7 @@ public class SpinnerGame : MonoBehaviour
     {
         if (obj is RewardItemData rwData)
         {
-            rewardArea.AdjustItem(rwData);
-
-            StartCoroutine(StartRewardedAnimation(spinnerContentUi, rwData));
-
+            spinnerGameNavigator.NavigateRewards(rewardArea,rwData, spinnerContentUi,SpawnTest);
             spinnerTier++;
         }
         else if (obj is BombItemData)
@@ -34,14 +33,6 @@ public class SpinnerGame : MonoBehaviour
         }
     }
 
-    private IEnumerator StartRewardedAnimation(SpinnerContentUi spinnerContentUi, RewardItemData rwData)
-    {
-        yield return new WaitForEndOfFrame();
-        var targetPos = rewardArea.GetRewardUiPosition(rwData.itemId);
-        CurrencyParticleController.Instance.Create(spinnerContentUi.transform.position, rwData.itemSprite,
-            rwData.rewardAmount,
-            targetPos, () => spinner.SpawnSpinner(spinnerTier, OnSpinEnded));
-    }
 
     [ContextMenu("TestSpin")]
     private void SpawnTest()

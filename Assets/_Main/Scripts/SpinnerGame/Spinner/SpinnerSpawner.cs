@@ -6,10 +6,13 @@ using UnityEngine.UI;
 
 public class SpinnerSpawner : MonoBehaviour
 {
-    private const float DISTANCEFROMCENTER = 150;
+    private float DISTANCEFROMCENTER = 150;
 
-    [Header("Scene References")] [SerializeField]
+    [Header("Prefab References")] [SerializeField]
     private Image uiSpinnerImage;
+
+    [SerializeField] private Image uiSpinnerIndicator;
+    [SerializeField] private Transform contentParent;
 
     [Header("Project References")] [SerializeField]
     private SpinnerContentUi contentUiPrefab;
@@ -32,7 +35,7 @@ public class SpinnerSpawner : MonoBehaviour
 
         var spinnerTypeSo = spinnerSettingsSo.spinnerTypes[_tier];
 
-        CreateSpinner(spinnerTypeSo.spinnerSprite);
+        CreateSpinner(spinnerTypeSo.spinnerSprite, spinnerTypeSo.indicatorSprite);
 
         var contents = SelectContents(spinnerTypeSo);
 
@@ -106,7 +109,7 @@ public class SpinnerSpawner : MonoBehaviour
         var direction = Vector3.up;
         for (int i = 0; i < SpinnerUtilities.HOLECOUNT; i++)
         {
-            var content = Instantiate(contentUiPrefab, transform);
+            var content = Instantiate(contentUiPrefab, contentParent);
             var contentOffset = Quaternion.AngleAxis(SpinnerUtilities.PERCOUNTANGLE * i, Vector3.forward * -1) *
                                 direction *
                                 DISTANCEFROMCENTER;
@@ -182,14 +185,10 @@ public class SpinnerSpawner : MonoBehaviour
         }
     }
 
-    private static void SelectContentType(List<SpinnerContentUi> contentUis, List<SpinnerContentSO> contentSos,
-        int tier, int i)
+    private void CreateSpinner(Sprite spinnerSprite, Sprite indicatorSprite)
     {
-    }
-
-    private void CreateSpinner(Sprite sprite)
-    {
-        uiSpinnerImage.sprite = sprite;
-        transform.rotation = Quaternion.identity;
+        uiSpinnerImage.sprite = spinnerSprite;
+        uiSpinnerIndicator.sprite = indicatorSprite;
+        contentParent.rotation = Quaternion.identity;
     }
 }

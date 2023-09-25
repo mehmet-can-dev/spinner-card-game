@@ -7,8 +7,11 @@ using UnityEngine.Serialization;
 
 public class SpinnerAnimation : MonoBehaviour
 {
+    [Header("Prefab References")] [SerializeField]
+    private Transform rotationTarget;
+    
+    [Header("Project References")]
     [SerializeField] private SpinnerAnimationData spinnerAnimationData;
-
     [SerializeField] private UIShiny uiShiny;
     
     public void Init()
@@ -33,7 +36,7 @@ public class SpinnerAnimation : MonoBehaviour
         yield return RotateSpinner(-spinnerAnimationData.missAngle, spinnerAnimationData.animationCurve, 50,
             500);
 
-        transform.rotation = Quaternion.AngleAxis(targetRotateAngle, Vector3.forward);
+        rotationTarget.rotation = Quaternion.AngleAxis(targetRotateAngle, Vector3.forward);
         yield return null;
         uiShiny.Play();
         onComplete?.Invoke();
@@ -44,7 +47,7 @@ public class SpinnerAnimation : MonoBehaviour
     {
         float currentRotateAngle = 0;
         float currentSpeed = startSpeed;
-        Transform t = transform;
+        Transform t = rotationTarget;
         Vector3 axis = Vector3.forward * Mathf.Sign(rotateAmount);
 
         while (currentRotateAngle <= Mathf.Abs(rotateAmount))
