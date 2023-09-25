@@ -23,7 +23,7 @@ public class CurrencyParticleController : Singleton<CurrencyParticleController>
 
     private void Start()
     {
-        for (int i = 0; i < MAXCOUNT; i++)
+        for (int i = 0; i < 30; i++)
         {
             var currencyParticle = Instantiate(currencyParticleUiPrefab, parent);
             currencyParticle.gameObject.SetActive(false);
