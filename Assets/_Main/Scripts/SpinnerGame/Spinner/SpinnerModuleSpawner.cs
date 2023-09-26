@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SpinnerModuleSpawner : MonoBehaviour
@@ -22,11 +20,10 @@ public class SpinnerModuleSpawner : MonoBehaviour
 
     private List<SpinnerContentUi> createdSpinnerContentUis;
     private List<ItemData> createdItemData;
-    
+
 
     public void Init()
     {
-      
         createdSpinnerContentUis = InstantiateContents();
     }
 
@@ -37,7 +34,7 @@ public class SpinnerModuleSpawner : MonoBehaviour
 
         CreateSpinner(spinnerTypeSo.spinnerSprite, spinnerTypeSo.indicatorSprite);
 
-        var contents = SelectContents(spinnerTypeSo);
+        var contents = SpinnerLogic.SelectContents(spinnerTypeSo);
 
         contents.Shuffle();
 
@@ -48,7 +45,6 @@ public class SpinnerModuleSpawner : MonoBehaviour
         FillContentUIs(createdSpinnerContentUis, createdItemData);
     }
 
-   
 
     public ItemData GetRewardDataFromIndex(int index)
     {
@@ -133,36 +129,6 @@ public class SpinnerModuleSpawner : MonoBehaviour
         }
 
         return spinnerContents;
-    }
-
-    private List<SpinnerContentSO> SelectContents(SpinnerTypeSO typeSo)
-    {
-        var contents = new List<SpinnerContentSO>();
-
-        for (int i = 0; i < typeSo.definitelyContents.Count; i++)
-        {
-            contents.Add(typeSo.definitelyContents[i]);
-        }
-
-        for (int i = 0; i < typeSo.bombContents.Count; i++)
-        {
-            contents.Add(typeSo.bombContents[i]);
-        }
-
-        var tempList = new List<SpinnerContentItemSO>(typeSo.possibilityContents);
-        var bag = new MarbleBag<SpinnerContentItemSO>(tempList);
-
-        var remainingCount = SpinnerLogic.HOLECOUNT - contents.Count;
-
-        for (int i = 0; i < remainingCount; i++)
-        {
-            var c = bag.PickRandom();
-            contents.Add(c);
-        }
-
-        // Debug.Log(SpinnerUtilities.LogContentList(contents));
-
-        return contents;
     }
 
     private void FillContentUIs(List<SpinnerContentUi> contentUis, List<ItemData> itemList)

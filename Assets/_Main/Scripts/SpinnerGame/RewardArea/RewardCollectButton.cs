@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,9 +16,8 @@ public class RewardCollectButton : MonoBehaviour, IPointerClickHandler
         rewardCollectButtonModuleAnimation.Init();
     }
 
-    public void SetActive(bool active,bool useAnim)
+    public void SetActive(bool active, bool useAnim)
     {
-        
         isActive = active;
         if (active)
         {

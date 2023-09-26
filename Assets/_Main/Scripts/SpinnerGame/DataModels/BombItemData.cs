@@ -1,5 +1,3 @@
-﻿using UnityEngine;
-
-public class BombItemData : ItemData
+﻿public class BombItemData : ItemData
 {
 }

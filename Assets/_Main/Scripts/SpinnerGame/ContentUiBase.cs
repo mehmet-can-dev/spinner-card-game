@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using _Main.Scripts.SpinnerGame.SOs;
-using DG.Tweening;
+﻿using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +19,7 @@ public class ContentUiBase : MonoBehaviour
 
     [Header("ProjectReferences")] [SerializeField]
     private ContentUiAnimationSettingsSO openingAnimationSettings;
-    
+
     public void Init(string id, Sprite sprite, int? amount)
     {
         this.id = id;

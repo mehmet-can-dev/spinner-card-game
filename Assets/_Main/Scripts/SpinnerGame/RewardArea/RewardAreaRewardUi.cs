@@ -1,6 +1,4 @@
-﻿using System.Text;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 public class RewardAreaRewardUi : ContentUiBase
 {

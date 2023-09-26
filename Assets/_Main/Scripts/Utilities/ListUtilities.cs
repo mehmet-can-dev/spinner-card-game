@@ -1,11 +1,10 @@
-﻿
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-    public static class ListUtilities
+public static class ListUtilities
+{
+    public static int GetModdedIndex<T>(List<T> targetList, int index)
     {
-        public static int GetModdedIndex<T>(List<T> targetList,int index)
-        {
-            var _index = index > targetList.Count ? index % targetList.Count : index;
-            return _index;
-        }
+        var _index = index > targetList.Count ? index % targetList.Count : index;
+        return _index;
     }
+}

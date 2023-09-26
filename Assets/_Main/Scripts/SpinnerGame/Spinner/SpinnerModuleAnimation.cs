@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using Coffee.UIEffects;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 public class SpinnerModuleAnimation : MonoBehaviour

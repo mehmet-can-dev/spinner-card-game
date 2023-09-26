@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class TierAreaModuleFiller : MonoBehaviour
     private TierAreaZoneUi selectedRightZone;
     private TierAreaZoneUi selectedLeftZone;
 
-    public void Init(List<TierAreaZoneUi> zones, TierAreaZoneUi selectedRightZone,TierAreaZoneUi selectedLeftZone )
+    public void Init(List<TierAreaZoneUi> zones, TierAreaZoneUi selectedRightZone, TierAreaZoneUi selectedLeftZone)
     {
         this.zones = zones;
         this.selectedRightZone = selectedRightZone;
@@ -27,14 +26,13 @@ public class TierAreaModuleFiller : MonoBehaviour
             else
                 zones[i].Init(value.ToString());
         }
-        
     }
 
     public void UpdateRightZoneText(int value)
     {
         selectedRightZone.Init(value.ToString());
     }
-    
+
     public void UpdateLeftZoneText(int value)
     {
         selectedLeftZone.Init(value.ToString());

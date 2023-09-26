@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,7 +6,7 @@ public class RewardCollectButtonModuleAnimation : MonoBehaviour
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private DoTweenBasicSettings openTweenSettings;
     [SerializeField] private DoTweenBasicSettings closeTweenSettings;
-    
+
     public void Init()
     {
     }
