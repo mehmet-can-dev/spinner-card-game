@@ -1,16 +1,19 @@
 ﻿using System.Text;
 
-public class RewardItemData : ItemData
+namespace SpinnerGame
 {
-    public int rewardAmount;
-
-    public override StringBuilder ToStringBuilder()
+    public class RewardItemData : ItemData
     {
-        var sb = base.ToStringBuilder();
+        public int rewardAmount;
 
-        sb.Append("rewardAmount :");
-        sb.Append(rewardAmount);
+        public override StringBuilder ToStringBuilder()
+        {
+            var sb = base.ToStringBuilder();
 
-        return sb;
+            sb.Append("rewardAmount :");
+            sb.Append(rewardAmount);
+
+            return sb;
+        }
     }
 }

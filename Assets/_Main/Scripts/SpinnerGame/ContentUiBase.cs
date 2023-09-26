@@ -3,59 +3,62 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-    
-public class ContentUiBase : MonoBehaviour
+namespace SpinnerGame
 {
-    protected string id;
 
-    private const int IMAGEMAXWIDTH = 50;
-    private const int IMAGEMAXHEIGHT = 50;
-    private const char PREFIX = 'X';
-
-    [Header("ChildReferences")] [SerializeField]
-    private Image uiImageSpinnerContent;
-
-    [SerializeField] private RectTransform uiRectSpinnerContent;
-    [SerializeField] private TextMeshProUGUI uiTextSpinnerContent;
-
-    [Header("ProjectReferences")] [SerializeField]
-    private ContentUiAnimationSettingsSO openingAnimationSettings;
-
-    public void Init(string id, Sprite sprite, int? amount)
+    public class ContentUiBase : MonoBehaviour
     {
-        this.id = id;
+        protected string id;
 
-        SetSprite(sprite, IMAGEMAXHEIGHT, IMAGEMAXWIDTH);
+        private const int IMAGEMAXWIDTH = 50;
+        private const int IMAGEMAXHEIGHT = 50;
+        private const char PREFIX = 'X';
 
-        SetText(amount);
-    }
+        [Header("ChildReferences")] [SerializeField]
+        private Image uiImageSpinnerContent;
 
+        [SerializeField] private RectTransform uiRectSpinnerContent;
+        [SerializeField] private TextMeshProUGUI uiTextSpinnerContent;
 
-    public void StartOpeningAnimation()
-    {
-        transform.localScale = Vector3.zero;
-        transform.DOScale(Vector3.one, openingAnimationSettings.animationDuration)
-            .SetEase(openingAnimationSettings.animationCurve);
-    }
+        [Header("ProjectReferences")] [SerializeField]
+        private ContentUiAnimationSettingsSO openingAnimationSettings;
 
-    public virtual void SetText(int? value)
-    {
-        if (value == null)
+        public void Init(string id, Sprite sprite, int? amount)
         {
-            uiTextSpinnerContent.gameObject.SetActive(false);
+            this.id = id;
+
+            SetSprite(sprite, IMAGEMAXHEIGHT, IMAGEMAXWIDTH);
+
+            SetText(amount);
         }
-        else
+
+
+        public void StartOpeningAnimation()
         {
-            uiTextSpinnerContent.gameObject.SetActive(true);
-            uiTextSpinnerContent.SetText(PREFIX + value.Value.FormatNumber());
+            transform.localScale = Vector3.zero;
+            transform.DOScale(Vector3.one, openingAnimationSettings.animationDuration)
+                .SetEase(openingAnimationSettings.animationCurve);
         }
-    }
 
-    protected virtual void SetSprite(Sprite sprite, int maxHeight, int maxWidth)
-    {
-        uiImageSpinnerContent.sprite = sprite;
+        public virtual void SetText(int? value)
+        {
+            if (value == null)
+            {
+                uiTextSpinnerContent.gameObject.SetActive(false);
+            }
+            else
+            {
+                uiTextSpinnerContent.gameObject.SetActive(true);
+                uiTextSpinnerContent.SetText(PREFIX + value.Value.FormatNumber());
+            }
+        }
 
-        UiUtilities.SetSizeDeltaFromImageSprite(uiRectSpinnerContent, sprite, maxHeight, maxWidth);
+        protected virtual void SetSprite(Sprite sprite, int maxHeight, int maxWidth)
+        {
+            uiImageSpinnerContent.sprite = sprite;
+
+            UiUtilities.SetSizeDeltaFromImageSprite(uiRectSpinnerContent, sprite, maxHeight, maxWidth);
+        }
     }
 }
 

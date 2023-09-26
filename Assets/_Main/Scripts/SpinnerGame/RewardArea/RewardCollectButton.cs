@@ -2,36 +2,40 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RewardCollectButton : MonoBehaviour, IPointerClickHandler
+namespace SpinnerGame.RewardArea
 {
-    [Header("Module References")] [SerializeField]
-    private RewardCollectButtonModuleAnimation rewardCollectButtonModuleAnimation;
 
-    private Action onClicked;
-    private bool isActive = true;
-
-    public void Init(Action onClicked)
+    public class RewardCollectButton : MonoBehaviour, IPointerClickHandler
     {
-        this.onClicked = onClicked;
-        rewardCollectButtonModuleAnimation.Init();
-    }
+        [Header("Module References")] [SerializeField]
+        private RewardCollectButtonModuleAnimation rewardCollectButtonModuleAnimation;
 
-    public void SetActive(bool active, bool useAnim)
-    {
-        isActive = active;
-        if (active)
+        private Action onClicked;
+        private bool isActive = true;
+
+        public void Init(Action onClicked)
         {
-            rewardCollectButtonModuleAnimation.Open(useAnim);
+            this.onClicked = onClicked;
+            rewardCollectButtonModuleAnimation.Init();
         }
-        else
-        {
-            rewardCollectButtonModuleAnimation.Close(useAnim);
-        }
-    }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (isActive)
-            onClicked?.Invoke();
+        public void SetActive(bool active, bool useAnim)
+        {
+            isActive = active;
+            if (active)
+            {
+                rewardCollectButtonModuleAnimation.Open(useAnim);
+            }
+            else
+            {
+                rewardCollectButtonModuleAnimation.Close(useAnim);
+            }
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (isActive)
+                onClicked?.Invoke();
+        }
     }
 }

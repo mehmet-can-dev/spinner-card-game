@@ -1,18 +1,19 @@
 using UnityEngine;
 
-public class SpinnerContentUi : ContentUiBase
+namespace SpinnerGame.Spinner
 {
-    private const int IMAGEMAXWIDTH = 70;
-    private const int IMAGEMAXHEIGHT = 70;
-    
-    public void Init(string id, Sprite sprite, int? amount=null)
+    public class SpinnerContentUi : ContentUiBase
     {
-        this.id = id;
+        private const int IMAGEMAXWIDTH = 70;
+        private const int IMAGEMAXHEIGHT = 70;
 
-        SetSprite(sprite,IMAGEMAXHEIGHT,IMAGEMAXWIDTH);
+        public void Init(string id, Sprite sprite, int? amount = null)
+        {
+            this.id = id;
 
-        SetText(amount);
+            SetSprite(sprite, IMAGEMAXHEIGHT, IMAGEMAXWIDTH);
+
+            SetText(amount);
+        }
     }
-
-   
 }

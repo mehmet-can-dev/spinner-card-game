@@ -1,18 +1,22 @@
 ﻿using System.Text;
 using UnityEngine;
 
-public class ItemData
+namespace SpinnerGame
 {
-    public Sprite itemSprite;
-    public string itemId;
 
-    public virtual StringBuilder ToStringBuilder()
+    public class ItemData
     {
-        StringBuilder sb = new StringBuilder();
-        sb.Append("itemID :");
-        sb.AppendLine(itemId);
-        sb.Append(" itemSprite :");
-        sb.AppendLine(itemSprite.name);
-        return sb;
+        public Sprite itemSprite;
+        public string itemId;
+
+        public virtual StringBuilder ToStringBuilder()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("itemID :");
+            sb.AppendLine(itemId);
+            sb.Append(" itemSprite :");
+            sb.AppendLine(itemSprite.name);
+            return sb;
+        }
     }
 }

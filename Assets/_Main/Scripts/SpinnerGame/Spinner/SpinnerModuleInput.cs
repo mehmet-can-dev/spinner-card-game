@@ -3,31 +3,36 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Graphic))]
-public class SpinnerModuleInput : MonoBehaviour, IPointerClickHandler
+namespace SpinnerGame.Spinner
 {
-    [Header("Child References")] [SerializeField]
-    private GameObject spinButtonObject;
 
-    private Action _onClick;
-    private bool isActive;
 
-    public void Init(Action OnClick)
+    [RequireComponent(typeof(Graphic))]
+    public class SpinnerModuleInput : MonoBehaviour, IPointerClickHandler
     {
-        _onClick = OnClick;
-    }
+        [Header("Child References")] [SerializeField]
+        private GameObject spinButtonObject;
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (!isActive)
-            return;
+        private Action _onClick;
+        private bool isActive;
 
-        _onClick?.Invoke();
-    }
+        public void Init(Action OnClick)
+        {
+            _onClick = OnClick;
+        }
 
-    public void SetActive(bool active)
-    {
-        isActive = active;
-        spinButtonObject.SetActive(active);
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (!isActive)
+                return;
+
+            _onClick?.Invoke();
+        }
+
+        public void SetActive(bool active)
+        {
+            isActive = active;
+            spinButtonObject.SetActive(active);
+        }
     }
 }

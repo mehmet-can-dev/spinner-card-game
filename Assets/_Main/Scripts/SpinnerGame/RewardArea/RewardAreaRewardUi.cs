@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 
-public class RewardAreaRewardUi : ContentUiBase
+namespace SpinnerGame.RewardArea
 {
-    
-    private const int IMAGEMAXWIDTH = 100;
-    private const int IMAGEMAXHEIGHT = 100;
-    
-    public void Init(string id, Sprite sprite)
+
+    public class RewardAreaRewardUi : ContentUiBase
     {
-        this.id = id;
-        SetSprite(sprite,IMAGEMAXHEIGHT,IMAGEMAXWIDTH);
+
+        private const int IMAGEMAXWIDTH = 100;
+        private const int IMAGEMAXHEIGHT = 100;
+
+        public void Init(string id, Sprite sprite)
+        {
+            this.id = id;
+            SetSprite(sprite, IMAGEMAXHEIGHT, IMAGEMAXWIDTH);
+        }
     }
 }

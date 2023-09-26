@@ -1,3 +1,7 @@
-﻿public class BombItemData : ItemData
+﻿
+namespace SpinnerGame
 {
+    public class BombItemData : ItemData
+    {
+    }
 }

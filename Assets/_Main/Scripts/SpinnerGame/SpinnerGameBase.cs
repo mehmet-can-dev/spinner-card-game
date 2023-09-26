@@ -1,67 +1,72 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using SpinnerGame.RewardArea;
+using SpinnerGame.Spinner;
+using SpinnerGame.TierArea;
+using UnityEngine;
 
-public class SpinnerGameBase : MonoBehaviour
+namespace SpinnerGame
 {
-    [Header("Module References")] [SerializeField]
-    private SpinnerGameModuleNavigator spinnerGameModuleNavigator;
-
-    [Header("Child References")] [SerializeField]
-    private SpinnerBase spinnerBase;
-
-    [SerializeField] private RewardAreaBase rewardAreaBase;
-    [SerializeField] private TierAreaBase tierAreaBase;
-
-    [Header("Project References")] [SerializeField]
-    private SpinnerSettingsSO spinnerSettingsSo;
-
-    private void Start()
+    public class SpinnerGameBase : MonoBehaviour
     {
-        spinnerGameModuleNavigator.Init();
-        spinnerBase.Init();
-        rewardAreaBase.Init(OnCollectRewards);
-        tierAreaBase.Init(spinnerSettingsSo);
-        SpawnNewSpinner();
-    }
+        [Header("Module References")] [SerializeField]
+        private SpinnerGameModuleNavigator spinnerGameModuleNavigator;
 
-    private void OnSpinStarted()
-    {
-        rewardAreaBase.CloseRewardButton(true);
-    }
+        [Header("Child References")] [SerializeField]
+        private SpinnerBase spinnerBase;
 
-    private void OnSpinEnded(ItemData itemData, SpinnerContentUi spinnerContentUi)
-    {
-        if (itemData is RewardItemData rwData)
+        [SerializeField] private RewardAreaBase rewardAreaBase;
+        [SerializeField] private TierAreaBase tierAreaBase;
+
+        [Header("Project References")] [SerializeField]
+        private SpinnerSettingsSO spinnerSettingsSo;
+
+        private void Start()
         {
-            spinnerGameModuleNavigator.NavigateRewards(rewardAreaBase, rwData, spinnerContentUi, TierUpGame);
+            spinnerGameModuleNavigator.Init();
+            spinnerBase.Init();
+            rewardAreaBase.Init(OnCollectRewards);
+            tierAreaBase.Init(spinnerSettingsSo);
+            SpawnNewSpinner();
         }
-        else if (itemData is BombItemData)
+
+        private void OnSpinStarted()
+        {
+            rewardAreaBase.CloseRewardButton(true);
+        }
+
+        private void OnSpinEnded(ItemData itemData, SpinnerContentUi spinnerContentUi)
+        {
+            if (itemData is RewardItemData rwData)
+            {
+                spinnerGameModuleNavigator.NavigateRewards(rewardAreaBase, rwData, spinnerContentUi, TierUpGame);
+            }
+            else if (itemData is BombItemData)
+            {
+                ResetGame();
+            }
+        }
+
+        private void TierUpGame()
+        {
+            rewardAreaBase.OpenRewardButton(true);
+            tierAreaBase.IncreaseTier();
+            SpawnNewSpinner();
+        }
+
+        private void ResetGame()
+        {
+            tierAreaBase.ResetTier();
+            rewardAreaBase.ClearRewardArea();
+            SpawnNewSpinner();
+        }
+
+        private void SpawnNewSpinner()
+        {
+            spinnerBase.SpawnSpinner(tierAreaBase.CurrentTier, spinnerSettingsSo, OnSpinStarted, OnSpinEnded);
+        }
+
+        private void OnCollectRewards()
         {
             ResetGame();
         }
-    }
-
-    private void TierUpGame()
-    {
-        rewardAreaBase.OpenRewardButton(true);
-        tierAreaBase.IncreaseTier();
-        SpawnNewSpinner();
-    }
-
-    private void ResetGame()
-    {
-        tierAreaBase.ResetTier();
-        rewardAreaBase.ClearRewardArea();
-        SpawnNewSpinner();
-    }
-
-    private void SpawnNewSpinner()
-    {
-        spinnerBase.SpawnSpinner(tierAreaBase.CurrentTier, spinnerSettingsSo, OnSpinStarted, OnSpinEnded);
-    }
-
-    private void OnCollectRewards()
-    {
-        ResetGame();
     }
 }

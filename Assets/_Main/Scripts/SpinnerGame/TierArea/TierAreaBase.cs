@@ -1,90 +1,95 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TierAreaBase : MonoBehaviour
+
+namespace SpinnerGame.TierArea
 {
-    [Header("Module References")] [SerializeField]
-    private TierAreaModuleFiller tierAreaModuleFiller;
-
-    [SerializeField] private TierAreaModuleAnimation tierAreaModuleAnimation;
-    [SerializeField] private TierAreaModuleColorSetter tierAreaModuleColorSetter;
-
-    [Header("Child References")] [SerializeField]
-    private RectTransform zoneSliderParent;
-
-    [SerializeField] private List<TierAreaZoneUi> slidingZones;
-    [SerializeField] private TierAreaZoneUi selectedZoneRight;
-    [SerializeField] private TierAreaZoneUi selectedZoneLeft;
-
-    private int currentTier = 0;
-
-    public int CurrentTier => currentTier;
-
-    private SpinnerSettingsSO spinnerSettingsSo;
-
-    public void Init(SpinnerSettingsSO spinnerSettingsSo)
+    public class TierAreaBase : MonoBehaviour
     {
-        this.spinnerSettingsSo = spinnerSettingsSo;
-        tierAreaModuleFiller.Init(slidingZones, selectedZoneRight, selectedZoneLeft);
-        tierAreaModuleAnimation.Init();
-        tierAreaModuleColorSetter.Init();
-        ResetTier();
-    }
+        [Header("Module References")] [SerializeField]
+        private TierAreaModuleFiller tierAreaModuleFiller;
 
-    public void IncreaseTier()
-    {
-        currentTier++;
+        [SerializeField] private TierAreaModuleAnimation tierAreaModuleAnimation;
+        [SerializeField] private TierAreaModuleColorSetter tierAreaModuleColorSetter;
 
-        UpdateTierArea(true);
-    }
+        [Header("Child References")] [SerializeField]
+        private RectTransform zoneSliderParent;
 
-    private void UpdateTierArea(bool useAnim)
-    {
-        UpdateColors();
+        [SerializeField] private List<TierAreaZoneUi> slidingZones;
+        [SerializeField] private TierAreaZoneUi selectedZoneRight;
+        [SerializeField] private TierAreaZoneUi selectedZoneLeft;
 
-        tierAreaModuleFiller.UpdateRightZoneText(currentTier + 1);
+        private int currentTier = 0;
 
-        void OnAnimationComplete()
+        public int CurrentTier => currentTier;
+
+        private SpinnerSettingsSO spinnerSettingsSo;
+
+        public void Init(SpinnerSettingsSO spinnerSettingsSo)
         {
-            tierAreaModuleFiller.FillZones(currentTier + 1);
-            ResetSlider();
-            tierAreaModuleFiller.UpdateLeftZoneText(currentTier + 1);
+            this.spinnerSettingsSo = spinnerSettingsSo;
+            tierAreaModuleFiller.Init(slidingZones, selectedZoneRight, selectedZoneLeft);
+            tierAreaModuleAnimation.Init();
+            tierAreaModuleColorSetter.Init();
+            ResetTier();
         }
 
-        if (useAnim)
+        public void IncreaseTier()
         {
-            tierAreaModuleAnimation.StartSlidingAnimation(zoneSliderParent, selectedZoneLeft, selectedZoneRight,
-                OnAnimationComplete);
+            currentTier++;
+
+            UpdateTierArea(true);
         }
-        else
+
+        private void UpdateTierArea(bool useAnim)
         {
-            OnAnimationComplete();
+            UpdateColors();
+
+            tierAreaModuleFiller.UpdateRightZoneText(currentTier + 1);
+
+            void OnAnimationComplete()
+            {
+                tierAreaModuleFiller.FillZones(currentTier + 1);
+                ResetSlider();
+                tierAreaModuleFiller.UpdateLeftZoneText(currentTier + 1);
+            }
+
+            if (useAnim)
+            {
+                tierAreaModuleAnimation.StartSlidingAnimation(zoneSliderParent, selectedZoneLeft, selectedZoneRight,
+                    OnAnimationComplete);
+            }
+            else
+            {
+                OnAnimationComplete();
+            }
         }
-    }
 
-    private void UpdateColors()
-    {
-        var rightColor = spinnerSettingsSo
-            .spinnerTypes[ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, currentTier)].spinnerMainColor;
-
-        var leftColor = Color.white;
-        if (currentTier - 1 >= 0)
-            leftColor = spinnerSettingsSo
-                .spinnerTypes[ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, currentTier - 1)]
+        private void UpdateColors()
+        {
+            var rightColor = spinnerSettingsSo
+                .spinnerTypes[ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, currentTier)]
                 .spinnerMainColor;
 
-        tierAreaModuleColorSetter.SetZoneColor(selectedZoneRight, rightColor);
-        tierAreaModuleColorSetter.SetZoneColor(selectedZoneLeft, leftColor);
-    }
+            var leftColor = Color.white;
+            if (currentTier - 1 >= 0)
+                leftColor = spinnerSettingsSo
+                    .spinnerTypes[ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, currentTier - 1)]
+                    .spinnerMainColor;
 
-    private void ResetSlider()
-    {
-        zoneSliderParent.anchoredPosition = Vector2.zero;
-    }
+            tierAreaModuleColorSetter.SetZoneColor(selectedZoneRight, rightColor);
+            tierAreaModuleColorSetter.SetZoneColor(selectedZoneLeft, leftColor);
+        }
 
-    public void ResetTier()
-    {
-        currentTier = 0;
-        UpdateTierArea(false);
+        private void ResetSlider()
+        {
+            zoneSliderParent.anchoredPosition = Vector2.zero;
+        }
+
+        public void ResetTier()
+        {
+            currentTier = 0;
+            UpdateTierArea(false);
+        }
     }
 }

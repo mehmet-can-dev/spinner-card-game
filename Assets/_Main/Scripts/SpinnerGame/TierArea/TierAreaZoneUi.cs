@@ -2,21 +2,24 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TierAreaZoneUi : MonoBehaviour
+namespace SpinnerGame.TierArea
 {
-    [SerializeField] private RectTransform zoneRectTransform;
-    [SerializeField] private Image zoneBackgroundImage;
-    [SerializeField] private TextMeshProUGUI valueText;
-
-    public RectTransform ZoneRectTransform => zoneRectTransform;
-
-    public void Init(string value)
+    public class TierAreaZoneUi : MonoBehaviour
     {
-        valueText.SetText(value);
-    }
+        [SerializeField] private RectTransform zoneRectTransform;
+        [SerializeField] private Image zoneBackgroundImage;
+        [SerializeField] private TextMeshProUGUI valueText;
 
-    public void SetColor(Color col)
-    {
-        zoneBackgroundImage.color = col;
+        public RectTransform ZoneRectTransform => zoneRectTransform;
+
+        public void Init(string value)
+        {
+            valueText.SetText(value);
+        }
+
+        public void SetColor(Color col)
+        {
+            zoneBackgroundImage.color = col;
+        }
     }
 }
