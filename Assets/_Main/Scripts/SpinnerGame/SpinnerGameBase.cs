@@ -35,13 +35,14 @@ namespace SpinnerGame
 
         private void OnSpinEnded(ItemData itemData, SpinnerContentUi spinnerContentUi)
         {
-            if (itemData is RewardItemData rwData)
+            switch (itemData)
             {
-                spinnerGameModuleNavigator.NavigateRewards(rewardAreaBase, rwData, spinnerContentUi, TierUpGame);
-            }
-            else if (itemData is BombItemData)
-            {
-                ResetGame();
+                case RewardItemData rwData:
+                    spinnerGameModuleNavigator.NavigateRewards(rewardAreaBase, rwData, spinnerContentUi, TierUpGame);
+                    break;
+                case BombItemData:
+                    ResetGame();
+                    break;
             }
         }
 

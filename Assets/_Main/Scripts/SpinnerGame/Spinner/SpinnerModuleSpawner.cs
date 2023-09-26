@@ -19,8 +19,7 @@ namespace SpinnerGame.Spinner
 
         private List<SpinnerContentUi> createdSpinnerContentUis;
         private List<ItemData> createdItemData;
-
-
+        
         public void Init()
         {
             createdSpinnerContentUis = InstantiateContents();
@@ -44,24 +43,7 @@ namespace SpinnerGame.Spinner
             FillContentUIs(createdSpinnerContentUis, createdItemData);
         }
 
-
-        public ItemData GetRewardDataFromIndex(int index)
-        {
-            if (index >= createdItemData.Count)
-                Debug.LogError("Index must be lower created reward count");
-
-            return createdItemData[index];
-        }
-
-        public SpinnerContentUi GetContentUiFromIndex(int index)
-        {
-            if (index >= createdSpinnerContentUis.Count)
-                Debug.LogError("Index must be lower created content ui count");
-
-            return createdSpinnerContentUis[index];
-        }
-
-        private List<ItemData> CalculateRewards(List<SpinnerContentUi> contentUis, List<SpinnerContentSO> contentSos,
+        private static List<ItemData> CalculateRewards(List<SpinnerContentUi> contentUis, List<SpinnerContentSO> contentSos,
             int tier)
         {
             if (contentUis.Count != contentSos.Count)
@@ -99,6 +81,22 @@ namespace SpinnerGame.Spinner
 
             return itemList;
         }
+        
+        public ItemData GetRewardDataFromIndex(int index)
+        {
+            if (index >= createdItemData.Count)
+                Debug.LogError("Index must be lower created reward count");
+
+            return createdItemData[index];
+        }
+
+        public SpinnerContentUi GetContentUiFromIndex(int index)
+        {
+            if (index >= createdSpinnerContentUis.Count)
+                Debug.LogError("Index must be lower created content ui count");
+
+            return createdSpinnerContentUis[index];
+        }
 
         private List<SpinnerContentUi> InstantiateContents()
         {
@@ -130,7 +128,7 @@ namespace SpinnerGame.Spinner
             return spinnerContents;
         }
 
-        private void FillContentUIs(List<SpinnerContentUi> contentUis, List<ItemData> itemList)
+        private static void FillContentUIs(List<SpinnerContentUi> contentUis, List<ItemData> itemList)
         {
             if (contentUis.Count != itemList.Count)
                 Debug.LogError("ContentUi count and itemList count not match !");

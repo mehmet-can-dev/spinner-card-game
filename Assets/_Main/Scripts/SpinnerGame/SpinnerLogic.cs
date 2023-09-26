@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SpinnerGame.Spinner;
 using UnityEngine;
 
 namespace SpinnerGame
@@ -39,9 +40,8 @@ namespace SpinnerGame
                 contents.Add(c);
             }
 
-            // Debug.Log(SpinnerUtilities.LogContentList(contents));
-
             return contents;
         }
+        
     }
 }
