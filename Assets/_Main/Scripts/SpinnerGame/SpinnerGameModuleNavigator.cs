@@ -8,20 +8,20 @@ public class SpinnerGameModuleNavigator : MonoBehaviour
     {
     }
 
-    public void NavigateRewards(RewardArea rewardArea, RewardItemData rwData, SpinnerContentUi spinnerContentUi,
+    public void NavigateRewards(RewardAreaBase rewardAreaBase, RewardItemData rwData, SpinnerContentUi spinnerContentUi,
         Action onComplete)
     {
-        if (!rewardArea.IsRewardedCreated(rwData.itemId))
-            rewardArea.AddItem(rwData);
-        StartCoroutine(StartRewardedAnimation(rewardArea, spinnerContentUi, rwData, onComplete));
+        if (!rewardAreaBase.IsRewardedCreated(rwData.itemId))
+            rewardAreaBase.AddItem(rwData);
+        StartCoroutine(StartRewardedAnimation(rewardAreaBase, spinnerContentUi, rwData, onComplete));
     }
 
-    private IEnumerator StartRewardedAnimation(RewardArea rewardArea, SpinnerContentUi spinnerContentUi,
+    private IEnumerator StartRewardedAnimation(RewardAreaBase rewardAreaBase, SpinnerContentUi spinnerContentUi,
         RewardItemData rwData, Action onComplete)
     {
         //Todo avoid horizontal group position latency
         yield return new WaitForEndOfFrame();
-        var targetPos = rewardArea.GetRewardUiPosition(rwData.itemId);
+        var targetPos = rewardAreaBase.GetRewardUiPosition(rwData.itemId);
 
         CurrencyCreateData currencyCreateData = new CurrencyCreateData()
         {
@@ -34,7 +34,7 @@ public class SpinnerGameModuleNavigator : MonoBehaviour
         void PerItemCollected()
         {
             var perAmount = rwData.rewardAmount / (float)currencyCreateData.spawnCount;
-            rewardArea.UpdateItem(rwData.itemId, (int)perAmount);
+            rewardAreaBase.UpdateItem(rwData.itemId, (int)perAmount);
         }
 
         void LastItemCollected()
@@ -42,7 +42,7 @@ public class SpinnerGameModuleNavigator : MonoBehaviour
             var remainingAmount = rwData.rewardAmount % currencyCreateData.spawnCount;
             if (remainingAmount != 0)
             {
-                rewardArea.UpdateItem(rwData.itemId, remainingAmount);
+                rewardAreaBase.UpdateItem(rwData.itemId, remainingAmount);
             }
 
             onComplete?.Invoke();

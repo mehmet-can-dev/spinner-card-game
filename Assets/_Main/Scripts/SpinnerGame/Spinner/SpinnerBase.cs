@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Spinner : MonoBehaviour
+public class SpinnerBase : MonoBehaviour
 {
     [Header("Module References")] [SerializeField]
     private SpinnerModuleAnimation spinnerModuleAnimation;

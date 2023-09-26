@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TierArea : MonoBehaviour
+public class TierAreaBase : MonoBehaviour
 {
     [Header("Module References")] [SerializeField]
     private TierAreaModuleFiller tierAreaModuleFiller;

@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
-public class SpinnerGame : MonoBehaviour
+public class SpinnerGameBase : MonoBehaviour
 {
     [Header("Module References")] [SerializeField]
     private SpinnerGameModuleNavigator spinnerGameModuleNavigator;
 
     [Header("Child References")] [SerializeField]
-    private Spinner spinner;
+    private SpinnerBase spinnerBase;
 
-    [SerializeField] private RewardArea rewardArea;
-    [SerializeField] private TierArea tierArea;
+    [SerializeField] private RewardAreaBase rewardAreaBase;
+    [SerializeField] private TierAreaBase tierAreaBase;
 
     [Header("Project References")] [SerializeField]
     private SpinnerSettingsSO spinnerSettingsSo;
@@ -17,22 +18,22 @@ public class SpinnerGame : MonoBehaviour
     private void Start()
     {
         spinnerGameModuleNavigator.Init();
-        spinner.Init();
-        rewardArea.Init(OnCollectRewards);
-        tierArea.Init(spinnerSettingsSo);
+        spinnerBase.Init();
+        rewardAreaBase.Init(OnCollectRewards);
+        tierAreaBase.Init(spinnerSettingsSo);
         SpawnNewSpinner();
     }
 
     private void OnSpinStarted()
     {
-        rewardArea.CloseRewardButton(true);
+        rewardAreaBase.CloseRewardButton(true);
     }
 
     private void OnSpinEnded(ItemData itemData, SpinnerContentUi spinnerContentUi)
     {
         if (itemData is RewardItemData rwData)
         {
-            spinnerGameModuleNavigator.NavigateRewards(rewardArea, rwData, spinnerContentUi, TierUpGame);
+            spinnerGameModuleNavigator.NavigateRewards(rewardAreaBase, rwData, spinnerContentUi, TierUpGame);
         }
         else if (itemData is BombItemData)
         {
@@ -42,21 +43,21 @@ public class SpinnerGame : MonoBehaviour
 
     private void TierUpGame()
     {
-        rewardArea.OpenRewardButton(true);
-        tierArea.IncreaseTier();
+        rewardAreaBase.OpenRewardButton(true);
+        tierAreaBase.IncreaseTier();
         SpawnNewSpinner();
     }
 
     private void ResetGame()
     {
-        tierArea.ResetTier();
-        rewardArea.ClearRewardArea();
+        tierAreaBase.ResetTier();
+        rewardAreaBase.ClearRewardArea();
         SpawnNewSpinner();
     }
 
     private void SpawnNewSpinner()
     {
-        spinner.SpawnSpinner(tierArea.CurrentTier, spinnerSettingsSo, OnSpinStarted, OnSpinEnded);
+        spinnerBase.SpawnSpinner(tierAreaBase.CurrentTier, spinnerSettingsSo, OnSpinStarted, OnSpinEnded);
     }
 
     private void OnCollectRewards()

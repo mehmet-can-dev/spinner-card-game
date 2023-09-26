@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+    
 public class ContentUiBase : MonoBehaviour
 {
     protected string id;
@@ -57,3 +58,4 @@ public class ContentUiBase : MonoBehaviour
         UiUtilities.SetSizeDeltaFromImageSprite(uiRectSpinnerContent, sprite, maxHeight, maxWidth);
     }
 }
+

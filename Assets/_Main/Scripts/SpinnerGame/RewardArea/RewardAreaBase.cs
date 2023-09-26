@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RewardArea : MonoBehaviour
+public class RewardAreaBase : MonoBehaviour
 {
     [Header("Module References")] [SerializeField]
     private RewardAreaModuleSpawner rewardAreaModuleSpawner;
