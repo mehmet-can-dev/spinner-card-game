@@ -122,6 +122,7 @@ MonoBehaviour:
   rewardAreaBase: {fileID: 8545643525804916912}
   tierAreaBase: {fileID: 8545643527285681337}
   spinnerSettingsSo: {fileID: 11400000, guid: 484bdd553311f9d4594ab6ca5212ecda, type: 2}
+  spinnerSeedSettingsSo: {fileID: 11400000, guid: fd0102ccc3919774a9ee6b558882b45a, type: 2}
 --- !u!114 &8545643525731351677
 MonoBehaviour:
   m_ObjectHideFlags: 0

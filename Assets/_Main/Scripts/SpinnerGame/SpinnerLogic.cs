@@ -10,6 +10,14 @@ namespace SpinnerGame
         public const float TWOPIRAD = 360;
         public const float PERCOUNTANGLE = TWOPIRAD / HOLECOUNT;
 
+        public static void SetSeed(SpinnerSeedSettingsSO spinnerSeedSettingsSo)
+        {
+            if (spinnerSeedSettingsSo.useSeed)
+                Random.InitState(spinnerSeedSettingsSo.seed.GetHashCode());
+            else
+                Random.InitState((int)System.DateTime.Now.Ticks);
+        }
+        
         public static int SelectTargetIndexLogic()
         {
             return Random.Range(0, HOLECOUNT);

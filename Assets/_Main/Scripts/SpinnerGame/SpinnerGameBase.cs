@@ -2,6 +2,7 @@
 using SpinnerGame.Spinner;
 using SpinnerGame.TierArea;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SpinnerGame
 {
@@ -19,8 +20,12 @@ namespace SpinnerGame
         [Header("Project References")] [SerializeField]
         private SpinnerSettingsSO spinnerSettingsSo;
 
+        [SerializeField] private SpinnerSeedSettingsSO spinnerSeedSettingsSo;
+
         private void Start()
         {
+            SpinnerLogic.SetSeed(spinnerSeedSettingsSo);
+
             spinnerGameModuleNavigator.Init();
             spinnerBase.Init();
             rewardAreaBase.Init(OnCollectRewards);
