@@ -41,6 +41,9 @@ public class RewardAreaModuleSpawner : MonoBehaviour
 
     public void DestroyCreatedRewardUIs()
     {
+        if (createdRewardUiContainer == null)
+            return;
+
         foreach (var rewardUIs in createdRewardUiContainer.Values)
         {
             Destroy(rewardUIs.gameObject);

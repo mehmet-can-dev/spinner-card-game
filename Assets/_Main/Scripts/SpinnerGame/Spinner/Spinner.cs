@@ -14,6 +14,7 @@ public class Spinner : MonoBehaviour
     [SerializeField] private SpinnerModuleInput spinnerModuleInput;
 
     private Action<ItemData, SpinnerContentUi> onSpinEnded;
+    private Action onSpinStarted;
 
     public void Init()
     {
@@ -22,9 +23,11 @@ public class Spinner : MonoBehaviour
         spinnerModuleInput.Init(OnSpinnerClicked);
     }
 
-    public void SpawnSpinner(int tier,SpinnerSettingsSO spinnerSettingsSo, Action<ItemData, SpinnerContentUi> onSpinEnded)
+    public void SpawnSpinner(int tier, SpinnerSettingsSO spinnerSettingsSo, Action onSpinStarted,
+        Action<ItemData, SpinnerContentUi> onSpinEnded)
     {
         this.onSpinEnded = onSpinEnded;
+        this.onSpinStarted = onSpinStarted;
         spinnerModuleInput.SetActive(true);
         spinnerModuleSpawner.CreateTier(tier, spinnerSettingsSo);
     }
@@ -34,6 +37,7 @@ public class Spinner : MonoBehaviour
         spinnerModuleInput.SetActive(false);
         var targetHole = SpinnerUtilities.SelectTargetIndex();
         spinnerModuleAnimation.StartAnimation(targetHole, () => OnSpinCompleted(targetHole));
+        onSpinStarted?.Invoke();
     }
 
     private void OnSpinCompleted(int targetHole)

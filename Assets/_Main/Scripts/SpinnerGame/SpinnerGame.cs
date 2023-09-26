@@ -21,32 +21,49 @@ public class SpinnerGame : MonoBehaviour
     {
         spinnerGameModuleNavigator.Init();
         spinner.Init();
-        rewardArea.Init();
+        rewardArea.Init(OnCollectRewards);
         tierArea.Init(spinnerSettingsSo);
-        spinner.SpawnSpinner(tierArea.CurrentTier, spinnerSettingsSo, OnSpinEnded);
+        SpawnNewSpinner();
+    }
+
+    private void OnSpinStarted()
+    {
+        rewardArea.CloseRewardButton(true);
     }
 
     private void OnSpinEnded(ItemData itemData, SpinnerContentUi spinnerContentUi)
     {
         if (itemData is RewardItemData rwData)
         {
-            spinnerGameModuleNavigator.NavigateRewards(rewardArea, rwData, spinnerContentUi, () =>
-            {
-                tierArea.IncreaseTier();
-                SpawnNewSpinner();
-            });
+            spinnerGameModuleNavigator.NavigateRewards(rewardArea, rwData, spinnerContentUi, TierUpGame);
         }
         else if (itemData is BombItemData)
         {
-            tierArea.ResetTier();
-            rewardArea.ClearRewardArea();
-            SpawnNewSpinner();
+            ResetGame();
         }
     }
 
-    [ContextMenu("TestSpin")]
+    private void TierUpGame()
+    {
+        rewardArea.OpenRewardButton(true);
+        tierArea.IncreaseTier();
+        SpawnNewSpinner();
+    }
+
+    private void ResetGame()
+    {
+        tierArea.ResetTier();
+        rewardArea.ClearRewardArea();
+        SpawnNewSpinner();
+    }
+
     private void SpawnNewSpinner()
     {
-        spinner.SpawnSpinner(tierArea.CurrentTier, spinnerSettingsSo, OnSpinEnded);
+        spinner.SpawnSpinner(tierArea.CurrentTier, spinnerSettingsSo, OnSpinStarted, OnSpinEnded);
+    }
+
+    private void OnCollectRewards()
+    {
+        ResetGame();
     }
 }

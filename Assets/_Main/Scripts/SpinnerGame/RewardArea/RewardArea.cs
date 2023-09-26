@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,35 @@ public class RewardArea : MonoBehaviour
     [Header("Module References")] [SerializeField]
     private RewardAreaModuleSpawner rewardAreaModuleSpawner;
 
+    [Header("Child References")] [SerializeField]
+    private RewardCollectButton rewardCollectButton;
+
     private Dictionary<string, int> rewardContainer;
 
-    public void Init()
+    private Action onRewardsCollected;
+
+    public void Init(Action onRewardsCollected)
     {
+        this.onRewardsCollected = onRewardsCollected;
+        rewardCollectButton.Init(CollectRewards);
+        CloseRewardButton(false);
+    }
+
+    private void CollectRewards()
+    {
+        CloseRewardButton(true);
+        ClaimRewardArea();
+        onRewardsCollected?.Invoke();
+    }
+
+    public void OpenRewardButton(bool useAnim)
+    {
+        rewardCollectButton.SetActive(true, useAnim);
+    }
+
+    public void CloseRewardButton(bool useAnim)
+    {
+        rewardCollectButton.SetActive(false, useAnim);
     }
 
     public Vector3 GetRewardUiPosition(string id)
@@ -55,11 +81,16 @@ public class RewardArea : MonoBehaviour
         }
     }
 
-    
     [ContextMenu("Clear")]
     public void ClearRewardArea()
     {
-        rewardContainer.Clear();
+        rewardContainer?.Clear();
         rewardAreaModuleSpawner.DestroyCreatedRewardUIs();
+    }
+
+    private void ClaimRewardArea()
+    {
+        //Todo write claim functions temporary reset Reward Area
+        ClearRewardArea();
     }
 }
