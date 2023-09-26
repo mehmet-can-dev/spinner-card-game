@@ -34,7 +34,7 @@ namespace SpinnerGame.Spinner
         private void OnSpinnerClicked()
         {
             spinnerModuleInput.SetActive(false);
-            var targetHole = SpinnerLogic.SelectTargetIndex();
+            var targetHole = SpinnerLogic.SelectTargetIndexLogic();
             spinnerModuleAnimation.StartAnimation(targetHole, () => OnSpinCompleted(targetHole));
             onSpinStarted?.Invoke();
         }

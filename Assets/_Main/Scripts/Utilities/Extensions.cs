@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Extensions
 {
-    public static void Shuffle<T>(this IList<T> list)
+    public static void ShuffleIgnoreSeed<T>(this IList<T> list)
     {
         var rng = new global::System.Random(Random.Range(0, 1000));
         var n = list.Count;
@@ -14,6 +14,22 @@ public static class Extensions
             var k = rng.Next(n + 1);
             (list[k], list[n]) = (list[n], list[k]);
         }
+    }
+
+    public static void Shuffle<T>(this IList<T> list)
+    {
+        List<T> temp = new List<T>();
+        List<T> shuffled = new List<T>();
+        temp.AddRange(list);
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            int index = Random.Range(0, temp.Count - 1);
+            shuffled.Add(temp[index]);
+            temp.RemoveAt(index);
+        }
+
+        list = shuffled;
     }
 
     public static StringBuilder ToStringBuilder(this int value)

@@ -10,12 +10,12 @@ namespace SpinnerGame
         public const float TWOPIRAD = 360;
         public const float PERCOUNTANGLE = TWOPIRAD / HOLECOUNT;
 
-        public static int SelectTargetIndex()
+        public static int SelectTargetIndexLogic()
         {
             return Random.Range(0, HOLECOUNT);
         }
 
-        public static List<SpinnerContentSO> SelectContents(SpinnerTypeSO typeSo)
+        public static List<SpinnerContentSO> SelectContentsLogic(SpinnerTypeSO typeSo)
         {
             var contents = new List<SpinnerContentSO>();
 
@@ -42,6 +42,10 @@ namespace SpinnerGame
 
             return contents;
         }
-        
+
+        public static void ShuffleLogic(List<SpinnerContentSO> contents)
+        {
+           contents.Shuffle();
+        }
     }
 }

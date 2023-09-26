@@ -19,7 +19,7 @@ namespace SpinnerGame.Spinner
 
         private List<SpinnerContentUi> createdSpinnerContentUis;
         private List<ItemData> createdItemData;
-        
+
         public void Init()
         {
             createdSpinnerContentUis = InstantiateContents();
@@ -32,18 +32,17 @@ namespace SpinnerGame.Spinner
 
             CreateSpinner(spinnerTypeSo.spinnerSprite, spinnerTypeSo.indicatorSprite);
 
-            var contents = SpinnerLogic.SelectContents(spinnerTypeSo);
+            var contents = SpinnerLogic.SelectContentsLogic(spinnerTypeSo);
 
-            contents.Shuffle();
-
-            SpinnerUtilities.LogContentList(contents);
+            SpinnerLogic.ShuffleLogic(contents);
 
             createdItemData = CalculateRewards(createdSpinnerContentUis, contents, _tier);
 
             FillContentUIs(createdSpinnerContentUis, createdItemData);
         }
 
-        private static List<ItemData> CalculateRewards(List<SpinnerContentUi> contentUis, List<SpinnerContentSO> contentSos,
+        private static List<ItemData> CalculateRewards(List<SpinnerContentUi> contentUis,
+            List<SpinnerContentSO> contentSos,
             int tier)
         {
             if (contentUis.Count != contentSos.Count)
@@ -81,7 +80,7 @@ namespace SpinnerGame.Spinner
 
             return itemList;
         }
-        
+
         public ItemData GetRewardDataFromIndex(int index)
         {
             if (index >= createdItemData.Count)
