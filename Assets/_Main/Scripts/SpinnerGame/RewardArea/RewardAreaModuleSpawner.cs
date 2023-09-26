@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class RewardAreaSpawner : MonoBehaviour
+public class RewardAreaModuleSpawner : MonoBehaviour
 {
-    [SerializeField] private RewardAreaRewardUi rewardAreaRewardUiPrefab;
-    [SerializeField] private RectTransform contentParent;
+    [Header("Project References")] [SerializeField]
+    private RewardAreaRewardUi rewardAreaRewardUiPrefab;
+
+    [Header("Child References")] [SerializeField]
+    private RectTransform contentParent;
 
     private Dictionary<string, RewardAreaRewardUi> createdRewardUiContainer;
 
@@ -21,7 +24,7 @@ public class RewardAreaSpawner : MonoBehaviour
         content.Init(rewardItemData.itemId, rewardItemData.itemSprite);
         createdRewardUiContainer.Add(rewardItemData.itemId, content);
     }
-    
+
     public void UpdateContent(string id, int amount)
     {
         if (!createdRewardUiContainer.ContainsKey(id))
@@ -33,6 +36,16 @@ public class RewardAreaSpawner : MonoBehaviour
 
     public Vector3 GetRewardUiPosition(string id)
     {
-       return createdRewardUiContainer[id].transform.position;
+        return createdRewardUiContainer[id].transform.position;
+    }
+
+    public void DestroyCreatedRewardUIs()
+    {
+        foreach (var rewardUIs in createdRewardUiContainer.Values)
+        {
+            Destroy(rewardUIs.gameObject);
+        }
+
+        createdRewardUiContainer.Clear();
     }
 }

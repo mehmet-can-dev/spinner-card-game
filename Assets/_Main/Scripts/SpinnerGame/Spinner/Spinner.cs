@@ -2,41 +2,44 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class Spinner : MonoBehaviour
 {
-    [SerializeField] private SpinnerAnimation _spinnerAnimation;
-    [SerializeField] private SpinnerSpawner _spinnerSpawner;
-    [SerializeField] private SpinnerInput _spinnerInput;
+    [Header("Module References")] [SerializeField]
+    private SpinnerModuleAnimation spinnerModuleAnimation;
 
-    private Action<ItemData,SpinnerContentUi> onSpinEnded;
+    [SerializeField] private SpinnerModuleSpawner spinnerModuleSpawner;
+    [SerializeField] private SpinnerModuleInput spinnerModuleInput;
+
+    private Action<ItemData, SpinnerContentUi> onSpinEnded;
 
     public void Init()
     {
-        _spinnerAnimation.Init();
-        _spinnerSpawner.Init();
-        _spinnerInput.Init(OnSpinnerClicked);
+        spinnerModuleAnimation.Init();
+        spinnerModuleSpawner.Init();
+        spinnerModuleInput.Init(OnSpinnerClicked);
     }
 
-    public void SpawnSpinner(int tier, Action<ItemData,SpinnerContentUi> onSpinEnded)
+    public void SpawnSpinner(int tier,SpinnerSettingsSO spinnerSettingsSo, Action<ItemData, SpinnerContentUi> onSpinEnded)
     {
         this.onSpinEnded = onSpinEnded;
-        _spinnerInput.SetActive(true);
-        _spinnerSpawner.CreateTier(tier);
+        spinnerModuleInput.SetActive(true);
+        spinnerModuleSpawner.CreateTier(tier, spinnerSettingsSo);
     }
 
     private void OnSpinnerClicked()
     {
-        _spinnerInput.SetActive(false);
+        spinnerModuleInput.SetActive(false);
         var targetHole = SpinnerUtilities.SelectTargetIndex();
-        _spinnerAnimation.StartAnimation(targetHole, () => OnSpinCompleted(targetHole));
+        spinnerModuleAnimation.StartAnimation(targetHole, () => OnSpinCompleted(targetHole));
     }
 
     private void OnSpinCompleted(int targetHole)
     {
-        var item = _spinnerSpawner.GetRewardDataFromIndex(targetHole);
-        var contentUi = _spinnerSpawner.GetContentUiFromIndex(targetHole);
-        onSpinEnded?.Invoke(item,contentUi);
+        var item = spinnerModuleSpawner.GetRewardDataFromIndex(targetHole);
+        var contentUi = spinnerModuleSpawner.GetContentUiFromIndex(targetHole);
+        onSpinEnded?.Invoke(item, contentUi);
     }
 }

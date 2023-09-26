@@ -1,40 +1,52 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SpinnerGame : MonoBehaviour
 {
-    [SerializeField] private SpinnerGameNavigator spinnerGameNavigator;
-    [SerializeField] private Spinner spinner;
+    [Header("Module References")] [SerializeField]
+    private SpinnerGameModuleNavigator spinnerGameModuleNavigator;
+
+    [Header("Child References")] [SerializeField]
+    private Spinner spinner;
+
     [SerializeField] private RewardArea rewardArea;
     [SerializeField] private TierArea tierArea;
 
+    [Header("Project References")] [SerializeField]
+    private SpinnerSettingsSO spinnerSettingsSo;
+
     private void Start()
     {
+        spinnerGameModuleNavigator.Init();
         spinner.Init();
         rewardArea.Init();
-        spinnerGameNavigator.Init();
-        tierArea.Init();
-        spinner.SpawnSpinner(tierArea.CurrentTier, OnSpinEnded);
+        tierArea.Init(spinnerSettingsSo);
+        spinner.SpawnSpinner(tierArea.CurrentTier, spinnerSettingsSo, OnSpinEnded);
     }
 
-    private void OnSpinEnded(ItemData obj, SpinnerContentUi spinnerContentUi)
+    private void OnSpinEnded(ItemData itemData, SpinnerContentUi spinnerContentUi)
     {
-        if (obj is RewardItemData rwData)
+        if (itemData is RewardItemData rwData)
         {
-            spinnerGameNavigator.NavigateRewards(rewardArea, rwData, spinnerContentUi, SpawnTest);
-            tierArea.IncreaseTier();
+            spinnerGameModuleNavigator.NavigateRewards(rewardArea, rwData, spinnerContentUi, () =>
+            {
+                tierArea.IncreaseTier();
+                SpawnNewSpinner();
+            });
         }
-        else if (obj is BombItemData)
+        else if (itemData is BombItemData)
         {
             tierArea.ResetTier();
-            SpawnTest();
+            rewardArea.ClearRewardArea();
+            SpawnNewSpinner();
         }
     }
-    
+
     [ContextMenu("TestSpin")]
-    private void SpawnTest()
+    private void SpawnNewSpinner()
     {
-        spinner.SpawnSpinner(tierArea.CurrentTier, OnSpinEnded);
+        spinner.SpawnSpinner(tierArea.CurrentTier, spinnerSettingsSo, OnSpinEnded);
     }
 }

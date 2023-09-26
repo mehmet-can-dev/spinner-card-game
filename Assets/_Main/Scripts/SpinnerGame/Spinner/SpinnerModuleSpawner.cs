@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class SpinnerSpawner : MonoBehaviour
+public class SpinnerModuleSpawner : MonoBehaviour
 {
     private float DISTANCEFROMCENTER = 150;
 
-    [Header("Prefab References")] [SerializeField]
+    [Header("Child References")] [SerializeField]
     private Image uiSpinnerImage;
 
     [SerializeField] private Image uiSpinnerIndicator;
@@ -17,22 +17,22 @@ public class SpinnerSpawner : MonoBehaviour
     [Header("Project References")] [SerializeField]
     private SpinnerContentUi contentUiPrefab;
 
-    [SerializeField] private SpinnerSettingsSO spinnerSettingsSo;
 
     private int currentTier = 0;
 
     private List<SpinnerContentUi> createdSpinnerContentUis;
     private List<ItemData> createdItemData;
+    
 
     public void Init()
     {
+      
         createdSpinnerContentUis = InstantiateContents();
     }
 
-    public void CreateTier(int tier)
+    public void CreateTier(int tier, SpinnerSettingsSO spinnerSettingsSo)
     {
-        var _tier = tier > spinnerSettingsSo.spinnerTypes.Count ? tier % spinnerSettingsSo.spinnerTypes.Count : tier;
-
+        var _tier = ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, tier);
         var spinnerTypeSo = spinnerSettingsSo.spinnerTypes[_tier];
 
         CreateSpinner(spinnerTypeSo.spinnerSprite, spinnerTypeSo.indicatorSprite);
@@ -47,6 +47,8 @@ public class SpinnerSpawner : MonoBehaviour
 
         FillContentUIs(createdSpinnerContentUis, createdItemData);
     }
+
+   
 
     public ItemData GetRewardDataFromIndex(int index)
     {

@@ -15,6 +15,7 @@ MonoBehaviour:
   id: silver_spinner
   spinnerSprite: {fileID: 21300000, guid: a4db0d1d061d13b4ba42c583964c8225, type: 3}
   indicatorSprite: {fileID: 21300000, guid: 47aed051a06f5c0488c1aa53e5410060, type: 3}
+  spinnerMainColor: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
   definitelyContents:
   - {fileID: 11400000, guid: 523c4629d6614c749bbf7b7c80c4b1e5, type: 2}
   - {fileID: 11400000, guid: e898f5d9013e6c54caa8e78745537e47, type: 2}

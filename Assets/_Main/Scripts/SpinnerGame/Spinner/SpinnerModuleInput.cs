@@ -6,9 +6,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Graphic))]
-public class SpinnerInput : MonoBehaviour, IPointerClickHandler
+public class SpinnerModuleInput : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private GameObject spinButtonObject;
+    [Header("Child References")] [SerializeField]
+    private GameObject spinButtonObject;
 
     private Action _onClick;
     private bool isActive;

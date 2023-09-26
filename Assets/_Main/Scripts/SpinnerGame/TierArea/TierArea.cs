@@ -2,14 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TierArea : MonoBehaviour
 {
-    [SerializeField] private TierAreaFiller tierAreaFiller;
-    [SerializeField] private TierAreaAnimation tierAreaAnimation;
-    [SerializeField] private RectTransform parentMask;
+    [Header("Module References")] [SerializeField]
+    private TierAreaModuleFiller tierAreaModuleFiller;
 
-    [SerializeField] private List<TierAreaZoneUi> zones;
+    [SerializeField] private TierAreaModuleAnimation tierAreaModuleAnimation;
+    [SerializeField] private TierAreaModuleColorSetter tierAreaModuleColorSetter;
+
+    [Header("Child References")] [SerializeField]
+    private RectTransform zoneSliderParent;
+
+    [SerializeField] private List<TierAreaZoneUi> slidingZones;
     [SerializeField] private TierAreaZoneUi selectedZoneRight;
     [SerializeField] private TierAreaZoneUi selectedZoneLeft;
 
@@ -17,32 +23,71 @@ public class TierArea : MonoBehaviour
 
     public int CurrentTier => currentTier;
 
-    public void Init()
+    private SpinnerSettingsSO spinnerSettingsSo;
+
+    public void Init(SpinnerSettingsSO spinnerSettingsSo)
     {
-        tierAreaFiller.Init(zones, selectedZoneRight, selectedZoneLeft);
+        this.spinnerSettingsSo = spinnerSettingsSo;
+        tierAreaModuleFiller.Init(slidingZones, selectedZoneRight, selectedZoneLeft);
+        tierAreaModuleAnimation.Init();
+        tierAreaModuleColorSetter.Init();
         ResetTier();
     }
 
     public void IncreaseTier()
     {
         currentTier++;
-        tierAreaFiller.FillZones(currentTier + 1);
+
+        UpdateTierArea(true);
+    }
+
+    private void UpdateTierArea(bool useAnim)
+    {
+        UpdateColors();
+
+        tierAreaModuleFiller.UpdateRightZoneText(currentTier + 1);
+
+        void OnAnimationComplete()
+        {
+            tierAreaModuleFiller.FillZones(currentTier + 1);
+            ResetSlider();
+            tierAreaModuleFiller.UpdateLeftZoneText(currentTier + 1);
+        }
+
+        if (useAnim)
+        {
+            tierAreaModuleAnimation.StartSlidingAnimation(zoneSliderParent, selectedZoneLeft, selectedZoneRight,
+                OnAnimationComplete);
+        }
+        else
+        {
+            OnAnimationComplete();
+        }
+    }
+
+    private void UpdateColors()
+    {
+        var rightColor = spinnerSettingsSo
+            .spinnerTypes[ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, currentTier)].spinnerMainColor;
+
+        var leftColor = Color.white;
+        if (currentTier - 1 >= 0)
+            leftColor = spinnerSettingsSo
+                .spinnerTypes[ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, currentTier - 1)]
+                .spinnerMainColor;
+
+        tierAreaModuleColorSetter.SetZoneColor(selectedZoneRight, rightColor);
+        tierAreaModuleColorSetter.SetZoneColor(selectedZoneLeft, leftColor);
+    }
+
+    private void ResetSlider()
+    {
+        zoneSliderParent.anchoredPosition = Vector2.zero;
     }
 
     public void ResetTier()
     {
         currentTier = 0;
-        tierAreaFiller.FillZones(currentTier + 1);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-            StartCoroutine(tierAreaAnimation.SlidingAnimation(parentMask, selectedZoneLeft,selectedZoneRight));
-    }
-
-    [ContextMenu("TestAnimation")]
-    private void TestAnimation()
-    {
+        UpdateTierArea(false);
     }
 }

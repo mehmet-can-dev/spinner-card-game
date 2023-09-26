@@ -5,15 +5,16 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 
-public class SpinnerAnimation : MonoBehaviour
+public class SpinnerModuleAnimation : MonoBehaviour
 {
-    [Header("Prefab References")] [SerializeField]
-    private Transform rotationTarget;
-    
-    [Header("Project References")]
-    [SerializeField] private SpinnerAnimationData spinnerAnimationData;
+    [Header("Project References")] [SerializeField]
+    private SpinnerSpinAnimationSettings spinnerSpinAnimationSettings;
+
+    [Header("Child References")] [SerializeField]
+    private Transform rotateTarget;
+
     [SerializeField] private UIShiny uiShiny;
-    
+
     public void Init()
     {
     }
@@ -27,16 +28,20 @@ public class SpinnerAnimation : MonoBehaviour
     {
         uiShiny.Stop();
         float targetAngle = SpinnerUtilities.PERCOUNTANGLE * targetHole;
-        float targetRotateAngle = SpinnerUtilities.TWOPIRAD * spinnerAnimationData.spinCount + targetAngle;
-        
-        yield return RotateSpinner(targetRotateAngle, spinnerAnimationData.animationCurve,
-            spinnerAnimationData.startSpeed, 100);
-        yield return RotateSpinner(spinnerAnimationData.missAngle, spinnerAnimationData.animationCurve, 100,
-            10);
-        yield return RotateSpinner(-spinnerAnimationData.missAngle, spinnerAnimationData.animationCurve, 50,
-            500);
+        float targetRotateAngle = SpinnerUtilities.TWOPIRAD * spinnerSpinAnimationSettings.spinCount + targetAngle;
 
-        rotationTarget.rotation = Quaternion.AngleAxis(targetRotateAngle, Vector3.forward);
+        yield return RotateSpinner(targetRotateAngle, spinnerSpinAnimationSettings.animationCurve,
+            spinnerSpinAnimationSettings.startSpeed, spinnerSpinAnimationSettings.finishSpeed);
+        
+        yield return RotateSpinner(spinnerSpinAnimationSettings.missAngle, spinnerSpinAnimationSettings.animationCurve,
+            spinnerSpinAnimationSettings.finishSpeed,
+            spinnerSpinAnimationSettings.missingRecoverySpeed);
+        
+        yield return RotateSpinner(-spinnerSpinAnimationSettings.missAngle, spinnerSpinAnimationSettings.animationCurve,
+            spinnerSpinAnimationSettings.missingRecoverySpeed,
+            spinnerSpinAnimationSettings.startSpeed);
+
+        rotateTarget.rotation = Quaternion.AngleAxis(targetRotateAngle, Vector3.forward);
         yield return null;
         uiShiny.Play();
         onComplete?.Invoke();
@@ -47,7 +52,7 @@ public class SpinnerAnimation : MonoBehaviour
     {
         float currentRotateAngle = 0;
         float currentSpeed = startSpeed;
-        Transform t = rotationTarget;
+        Transform t = rotateTarget;
         Vector3 axis = Vector3.forward * Mathf.Sign(rotateAmount);
 
         while (currentRotateAngle <= Mathf.Abs(rotateAmount))

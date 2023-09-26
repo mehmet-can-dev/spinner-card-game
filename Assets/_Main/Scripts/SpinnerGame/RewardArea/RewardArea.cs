@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RewardArea : MonoBehaviour
 {
-    [SerializeField] private RewardAreaSpawner rewardAreaSpawner;
+    [Header("Module References")] [SerializeField]
+    private RewardAreaModuleSpawner rewardAreaModuleSpawner;
 
     private Dictionary<string, int> rewardContainer;
 
@@ -14,14 +16,13 @@ public class RewardArea : MonoBehaviour
 
     public Vector3 GetRewardUiPosition(string id)
     {
-        return rewardAreaSpawner.GetRewardUiPosition(id);
+        return rewardAreaModuleSpawner.GetRewardUiPosition(id);
     }
 
     public bool IsRewardedCreated(string id)
     {
         if (rewardContainer == null)
             return false;
-
         return rewardContainer.ContainsKey(id);
     }
 
@@ -30,7 +31,7 @@ public class RewardArea : MonoBehaviour
         if (rewardContainer.ContainsKey(id))
         {
             rewardContainer[id] += amount;
-            rewardAreaSpawner.UpdateContent(id, rewardContainer[id]);
+            rewardAreaModuleSpawner.UpdateContent(id, rewardContainer[id]);
         }
         else
         {
@@ -46,11 +47,19 @@ public class RewardArea : MonoBehaviour
         if (!rewardContainer.ContainsKey(rewardItemData.itemId))
         {
             rewardContainer.Add(rewardItemData.itemId, 0);
-            rewardAreaSpawner.SpawnContent(rewardItemData);
+            rewardAreaModuleSpawner.SpawnContent(rewardItemData);
         }
         else
         {
             Debug.LogError("Rewarded Item Data Already Created");
         }
+    }
+
+    
+    [ContextMenu("Clear")]
+    public void ClearRewardArea()
+    {
+        rewardContainer.Clear();
+        rewardAreaModuleSpawner.DestroyCreatedRewardUIs();
     }
 }

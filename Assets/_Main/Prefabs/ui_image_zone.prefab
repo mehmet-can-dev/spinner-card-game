@@ -226,4 +226,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneRectTransform: {fileID: 3953583149877755293}
+  zoneBackgroundImage: {fileID: 3953583149877755294}
   valueText: {fileID: 4332888535949505640}
