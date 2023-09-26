@@ -32,6 +32,20 @@ public static class Extensions
         list = shuffled;
     }
 
+    public static StringBuilder ToStringBuilder<T, E>(this Dictionary<T, E> dict)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (var VARIABLE in dict)
+        {
+            sb.Append(VARIABLE.Key);
+            sb.Append(" : ");
+            sb.Append(VARIABLE.Value);
+            sb.Append("  ");
+        }
+
+        return sb;
+    }
+
     public static StringBuilder ToStringBuilder(this int value)
     {
         StringBuilder sb = new StringBuilder();

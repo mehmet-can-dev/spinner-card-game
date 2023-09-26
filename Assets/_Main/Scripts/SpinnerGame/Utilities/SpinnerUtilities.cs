@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace SpinnerGame
 {
-
     public static class SpinnerUtilities
     {
         public static void LogContentList(List<SpinnerContentSO> spinnerContents)
