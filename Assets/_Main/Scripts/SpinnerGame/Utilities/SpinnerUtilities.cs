@@ -4,10 +4,6 @@ using UnityEngine;
 
 public static class SpinnerUtilities
 {
-    public const int HOLECOUNT = 8;
-    public const float TWOPIRAD = 360;
-    public const float PERCOUNTANGLE = TWOPIRAD / HOLECOUNT;
-
     public static void LogContentList(List<SpinnerContentSO> spinnerContents)
     {
         StringBuilder sb = new StringBuilder();
@@ -18,11 +14,6 @@ public static class SpinnerUtilities
         }
 
         Debug.Log(sb);
-    }
-
-    public static int SelectTargetIndex()
-    {
-        return Random.Range(0, HOLECOUNT);
     }
 
     //todo Check int max

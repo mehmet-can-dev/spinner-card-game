@@ -27,8 +27,8 @@ public class SpinnerModuleAnimation : MonoBehaviour
     private IEnumerator SpinnerRotationCor(int targetHole, Action onComplete)
     {
         uiShiny.Stop();
-        float targetAngle = SpinnerUtilities.PERCOUNTANGLE * targetHole;
-        float targetRotateAngle = SpinnerUtilities.TWOPIRAD * spinnerSpinAnimationSettings.spinCount + targetAngle;
+        float targetAngle = SpinnerLogic.PERCOUNTANGLE * targetHole;
+        float targetRotateAngle = SpinnerLogic.TWOPIRAD * spinnerSpinAnimationSettings.spinCount + targetAngle;
 
         yield return RotateSpinner(targetRotateAngle, spinnerSpinAnimationSettings.animationCurve,
             spinnerSpinAnimationSettings.startSpeed, spinnerSpinAnimationSettings.finishSpeed);

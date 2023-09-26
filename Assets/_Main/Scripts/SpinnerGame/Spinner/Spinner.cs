@@ -35,7 +35,7 @@ public class Spinner : MonoBehaviour
     private void OnSpinnerClicked()
     {
         spinnerModuleInput.SetActive(false);
-        var targetHole = SpinnerUtilities.SelectTargetIndex();
+        var targetHole = SpinnerLogic.SelectTargetIndex();
         spinnerModuleAnimation.StartAnimation(targetHole, () => OnSpinCompleted(targetHole));
         onSpinStarted?.Invoke();
     }

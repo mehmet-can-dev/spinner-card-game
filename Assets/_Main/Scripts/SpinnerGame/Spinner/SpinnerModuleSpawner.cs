@@ -109,10 +109,10 @@ public class SpinnerModuleSpawner : MonoBehaviour
     {
         var spinnerContents = new List<SpinnerContentUi>();
         var direction = Vector3.up;
-        for (int i = 0; i < SpinnerUtilities.HOLECOUNT; i++)
+        for (int i = 0; i < SpinnerLogic.HOLECOUNT; i++)
         {
             var content = Instantiate(contentUiPrefab, contentParent);
-            var contentOffset = Quaternion.AngleAxis(SpinnerUtilities.PERCOUNTANGLE * i, Vector3.forward * -1) *
+            var contentOffset = Quaternion.AngleAxis(SpinnerLogic.PERCOUNTANGLE * i, Vector3.forward * -1) *
                                 direction *
                                 DISTANCEFROMCENTER;
             content.transform.localPosition = contentOffset;
@@ -152,7 +152,7 @@ public class SpinnerModuleSpawner : MonoBehaviour
         var tempList = new List<SpinnerContentItemSO>(typeSo.possibilityContents);
         var bag = new MarbleBag<SpinnerContentItemSO>(tempList);
 
-        var remainingCount = SpinnerUtilities.HOLECOUNT - contents.Count;
+        var remainingCount = SpinnerLogic.HOLECOUNT - contents.Count;
 
         for (int i = 0; i < remainingCount; i++)
         {
