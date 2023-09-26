@@ -1,5 +1,8 @@
-﻿public enum CurrencyType
+﻿namespace Economy
 {
-    COIN,
-    CASH
+    public enum CurrencyType
+    {
+        COIN,
+        CASH
+    }
 }

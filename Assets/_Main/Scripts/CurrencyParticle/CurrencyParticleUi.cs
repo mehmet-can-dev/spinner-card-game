@@ -4,51 +4,50 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CurrencyParticleUi : MonoBehaviour
+namespace CurrencyParticle
 {
-    private const int IMAGEMAXWIDTH = 100;
-    private const int IMAGEMAXHEIGHT = 100;
-
-    [SerializeField] private Image imgCurrency;
-    [SerializeField] private RectTransform imgRect;
-
-    private void Awake()
+    public class CurrencyParticleUi : MonoBehaviour
     {
-    }
+        private const int IMAGEMAXWIDTH = 100;
+        private const int IMAGEMAXHEIGHT = 100;
 
-    public void FetchData(Vector3 pos, Sprite sprite)
-    {
-        imgRect.transform.position = pos;
-        imgCurrency.sprite = sprite;
-        UiUtilities.SetSizeDeltaFromImageSprite(imgRect, sprite, IMAGEMAXHEIGHT, IMAGEMAXWIDTH);
-    }
+        [SerializeField] private Image imgCurrency;
+        [SerializeField] private RectTransform imgRect;
 
-    public IEnumerator AddForce(Vector2 spawnCenter, Vector2 direction, float movementDuration, float collectDelay,
-        Vector2 targetPos,
-        float targetMovementDuration, Ease targetMovementEase, Vector3 targetRotate, float targetRotateDuration,
-        Action collectAction)
-    {
-        targetMovementDuration *= UnityEngine.Random.Range(1, 1.5f);
-        transform.DOKill();
-        transform.localScale = Vector3.zero;
+        public void FetchData(Vector3 pos, Sprite sprite)
+        {
+            imgRect.transform.position = pos;
+            imgCurrency.sprite = sprite;
+            UiUtilities.SetSizeDeltaFromImageSprite(imgRect, sprite, IMAGEMAXHEIGHT, IMAGEMAXWIDTH);
+        }
 
-        var movementDelay = UnityEngine.Random.Range(collectDelay, collectDelay * 3f);
-        transform.DOMove(spawnCenter + direction, movementDuration)
-            .SetEase(Ease.Unset);
-        transform.DORotate(targetRotate, targetRotateDuration)
-            .SetEase(Ease.Unset);
-        transform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
+        public IEnumerator AddForce(Vector2 spawnCenter, Vector2 direction, float movementDuration, float collectDelay,
+            Vector2 targetPos,
+            float targetMovementDuration, Ease targetMovementEase, Vector3 targetRotate, float targetRotateDuration,
+            Action collectAction)
+        {
+            targetMovementDuration *= UnityEngine.Random.Range(1, 1.5f);
+            transform.DOKill();
+            transform.localScale = Vector3.zero;
 
-        yield return new WaitForSeconds(movementDuration);
+            var movementDelay = UnityEngine.Random.Range(collectDelay, collectDelay * 3f);
+            transform.DOMove(spawnCenter + direction, movementDuration)
+                .SetEase(Ease.Unset);
+            transform.DORotate(targetRotate, targetRotateDuration)
+                .SetEase(Ease.Unset);
+            transform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
 
-        transform.DORotate(Vector3.zero, targetRotateDuration)
-            .SetEase(Ease.Unset);
-        yield return transform.DOMove(targetPos, targetMovementDuration)
-            .SetEase(targetMovementEase)
-            .OnComplete(() => { collectAction?.Invoke(); }).WaitForCompletion();
-    }
+            yield return new WaitForSeconds(movementDuration);
 
-    public void FinishSequence()
-    {
+            transform.DORotate(Vector3.zero, targetRotateDuration)
+                .SetEase(Ease.Unset);
+            yield return transform.DOMove(targetPos, targetMovementDuration)
+                .SetEase(targetMovementEase)
+                .OnComplete(() => { collectAction?.Invoke(); }).WaitForCompletion();
+        }
+
+        public void FinishSequence()
+        {
+        }
     }
 }

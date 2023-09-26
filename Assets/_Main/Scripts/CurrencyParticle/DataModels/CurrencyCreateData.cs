@@ -1,6 +1,7 @@
-﻿
-    using UnityEngine;
+﻿using UnityEngine;
 
+namespace CurrencyParticle
+{
     public class CurrencyCreateData
     {
         public Vector2 spawnPos;
@@ -8,3 +9,4 @@
         public int spawnCount;
         public Vector3 targetPos;
     }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "CurrencyParticle",
+    "rootNamespace": "",
+    "references": [
+        "GUID:252d0c66db8f65541bf54e25c64094cc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

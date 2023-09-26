@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using CurrencyParticle;
 using SpinnerGame.RewardArea;
 using SpinnerGame.Spinner;
 using UnityEngine;
