@@ -13,7 +13,7 @@ namespace SpinnerGame
         public static void SetSeed(SpinnerSeedSettingsSO spinnerSeedSettingsSo)
         {
             if (spinnerSeedSettingsSo.useSeed)
-                Random.InitState(spinnerSeedSettingsSo.seed.GetHashCode());
+                Random.InitState(spinnerSeedSettingsSo.seed);
             else
                 Random.InitState((int)System.DateTime.Now.Ticks);
         }

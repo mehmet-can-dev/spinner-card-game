@@ -6,6 +6,6 @@ namespace SpinnerGame
     public class SpinnerSeedSettingsSO : ScriptableObject
     {
         public bool useSeed = false;
-        public string seed;
+        public int seed;
     }
 }

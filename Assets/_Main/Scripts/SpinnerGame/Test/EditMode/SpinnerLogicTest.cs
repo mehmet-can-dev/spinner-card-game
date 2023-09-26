@@ -72,8 +72,6 @@ public class SpinnerLogicTest
                 sortedSb.Append(rewardAmount);
                 sortedSb.Append(" - ");
             }
-            
-          
 
             if (reachCount > 2048)
             {
@@ -86,12 +84,57 @@ public class SpinnerLogicTest
         sb.Append(reachCount);
         sb.Append("  ");
         sb.Append(contentContainer.ToStringBuilder());
-        
+
         LogAssert.Expect(LogType.Exception, "Exception");
         Debug.LogException(new Exception(sb.ToString()));
         Debug.LogException(new Exception(sortedSb.ToString()));
 
         Assert.AreEqual(reachCount, 2048);
+    }
+
+    [Test]
+    public void Find100Seed_TakeLongTimeDontWorry()
+    {
+        var reachTarget = 100;
+
+        var spinnerSettingsSo = LoadSpinnerSettings();
+        var bombSo = LoadBombSO();
+        List<SpinnerContentSO> contents;
+
+        int seed = 0;
+
+        int reachCount = 0;
+        do
+        {
+            Random.InitState(seed);
+            seed++;
+            reachCount = 0;
+            int index = 0;
+
+            do
+            {
+                reachCount++;
+
+                var _reachCount = ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, reachCount);
+                contents = SpinnerLogic.SelectContentsLogic(spinnerSettingsSo.spinnerTypes[_reachCount]);
+                SpinnerLogic.ShuffleLogic(contents);
+
+                index = SpinnerLogic.SelectTargetIndexLogic();
+
+                if (reachCount > 2048)
+                {
+                    LogAssert.Expect(LogType.Exception, "Exception");
+                    Debug.LogException(new Exception("break "));
+                    // for break infinity loop
+                    break;
+                }
+            } while (contents[index].contentId != bombSo.contentId);
+        } while (reachCount < reachTarget);
+
+        LogAssert.Expect(LogType.Exception, "Exception");
+        Debug.LogException(new Exception("seed " + (seed - 1).ToString()));
+
+        Assert.AreEqual(reachCount, reachTarget);
     }
 
 
