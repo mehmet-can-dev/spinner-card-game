@@ -7,7 +7,7 @@ namespace SpinnerGame.Spinner
         private const int IMAGEMAXWIDTH = 70;
         private const int IMAGEMAXHEIGHT = 70;
 
-        public void Init(string id, Sprite sprite, int? amount = null)
+        public new void Init(string id, Sprite sprite, int? amount = null)
         {
             this.id = id;
 
