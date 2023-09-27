@@ -43,31 +43,18 @@ namespace SpinnerGame.RewardArea
             return false;
         }
 
-        private bool IsFocussed()
-        {
-            // Avoid floating point
-            if (Math.Abs(scrollRect.horizontalScrollbar.value - currentHorizontalValue) > 0.01f)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public void TryFocusIndex(int totalRewardUiCount, int focusRewardUiIndex, Action onComplete)
+        public void TryFocusIndex(int totalRewardUiCount, int focusRewardUiIndex)
         {
             currentHorizontalValue = focusRewardUiIndex / (float)totalRewardUiCount;
+
+            // Avoid floating point
             if (Math.Abs(currentHorizontalValue - lastHorizontalValue) > 0.01f)
             {
                 DOTween.To(() => scrollRect.horizontalScrollbar.value,
                         x => { scrollRect.horizontalScrollbar.value = x; },
                         currentHorizontalValue, viewScrollAnimation.duration).SetEase(viewScrollAnimation.curve)
-                    .SetLink(gameObject).OnComplete(() => { onComplete?.Invoke(); });
+                    .SetLink(gameObject);
                 lastHorizontalValue = currentHorizontalValue;
-            }
-            else
-            {
-                onComplete?.Invoke();
             }
         }
 
@@ -78,10 +65,13 @@ namespace SpinnerGame.RewardArea
 
         public void IncreaseLayoutWidth()
         {
-            var increaseAmount = rewardAreaRewardUiPrefabRectTransform.sizeDelta.x * 5f;
+            var increaseAmount = rewardAreaRewardUiPrefabRectTransform.sizeDelta.x + horizontalLayoutGroup.spacing;
             var size = GetLayoutGroupContentSize();
             size.x += increaseAmount;
             SetLayoutGroupContentSize(size);
+            fitRewardUiCount++;
+            Debug.Log("increaseAmount " + increaseAmount);
+            Debug.Log("size " + size);
         }
 
         private void SetLayoutGroupContentSize(Vector2 targetSize)

@@ -56,7 +56,7 @@ namespace SpinnerGame.RewardArea
             return rewardContainer.ContainsKey(id);
         }
 
-        public void UpdateView(string id,Action onComplete)
+        public void UpdateView(string id)
         {
             if (rewardAreaHorizontalLayoutModule.IsNecessaryToIncreaseLayout(rewardContainer.Keys.Count))
             {
@@ -64,7 +64,7 @@ namespace SpinnerGame.RewardArea
             }
             
             rewardAreaHorizontalLayoutModule.TryFocusIndex(rewardContainer.Keys.Count,
-                rewardContainer.Keys.ToList().IndexOf(id),onComplete);
+                rewardContainer.Keys.ToList().IndexOf(id));
         }
 
         public void UpdateItem(string id, int amount)

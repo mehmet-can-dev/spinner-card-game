@@ -19,16 +19,13 @@ namespace SpinnerGame
         {
             if (!rewardAreaBase.IsRewardedCreated(rwData.itemId))
                 rewardAreaBase.AddItem(rwData);
-            rewardAreaBase.UpdateView(rwData.itemId,
-                () => StartCoroutine(StartRewardedAnimation(rewardAreaBase, spinnerContentUi, rwData, onComplete))
-            );
+            rewardAreaBase.UpdateView(rwData.itemId);
+            StartRewardedNavigation(rewardAreaBase, spinnerContentUi, rwData, onComplete);
         }
 
-        private IEnumerator StartRewardedAnimation(RewardAreaBase rewardAreaBase, SpinnerContentUi spinnerContentUi,
+        private void StartRewardedNavigation(RewardAreaBase rewardAreaBase, SpinnerContentUi spinnerContentUi,
             RewardItemData rwData, Action onComplete)
         {
-            //Todo avoid horizontal group position latency
-            yield return new WaitForEndOfFrame();
             var targetTransform = rewardAreaBase.GetRewardUiTransform(rwData.itemId);
 
             CurrencyCreateData currencyCreateData = new CurrencyCreateData()
