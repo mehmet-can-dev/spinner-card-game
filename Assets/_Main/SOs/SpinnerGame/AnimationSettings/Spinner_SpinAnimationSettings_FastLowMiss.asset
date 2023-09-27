@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spinCount: 3
   startSpeed: 1500
-  finishSpeed: 100
+  finishSpeed: 500
   missAngle: 10
-  missingRecoverySpeed: 50
+  missingRecoverySpeed: 100
   animationCurve:
     serializedVersion: 2
     m_Curve:

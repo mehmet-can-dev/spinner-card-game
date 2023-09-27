@@ -19,7 +19,9 @@ namespace SpinnerGame
         {
             if (!rewardAreaBase.IsRewardedCreated(rwData.itemId))
                 rewardAreaBase.AddItem(rwData);
-            StartCoroutine(StartRewardedAnimation(rewardAreaBase, spinnerContentUi, rwData, onComplete));
+            rewardAreaBase.UpdateView(rwData.itemId,
+                () => StartCoroutine(StartRewardedAnimation(rewardAreaBase, spinnerContentUi, rwData, onComplete))
+            );
         }
 
         private IEnumerator StartRewardedAnimation(RewardAreaBase rewardAreaBase, SpinnerContentUi spinnerContentUi,

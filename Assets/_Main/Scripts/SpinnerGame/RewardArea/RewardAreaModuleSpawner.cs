@@ -29,7 +29,7 @@ namespace SpinnerGame.RewardArea
         {
             if (!createdRewardUiContainer.ContainsKey(id))
                 Debug.LogError("Reward Container Init Error");
-
+            
             var content = createdRewardUiContainer[id];
             content.SetText(amount);
         }

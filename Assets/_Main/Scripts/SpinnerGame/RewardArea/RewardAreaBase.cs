@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SpinnerGame.RewardArea
 {
-
     public class RewardAreaBase : MonoBehaviour
     {
         [Header("Module References")] [SerializeField]
         private RewardAreaModuleSpawner rewardAreaModuleSpawner;
 
+        [SerializeField] private RewardAreaHorizontalLayoutModule rewardAreaHorizontalLayoutModule;
+
         [Header("Child References")] [SerializeField]
         private RewardCollectButton rewardCollectButton;
+
         private Dictionary<string, int> rewardContainer;
 
         private Action onRewardsCollected;
@@ -20,6 +23,7 @@ namespace SpinnerGame.RewardArea
         {
             this.onRewardsCollected = onRewardsCollected;
             rewardCollectButton.Init(CollectRewards);
+            rewardAreaHorizontalLayoutModule.Init();
             CloseRewardButton(false);
         }
 
@@ -52,12 +56,24 @@ namespace SpinnerGame.RewardArea
             return rewardContainer.ContainsKey(id);
         }
 
+        public void UpdateView(string id,Action onComplete)
+        {
+            if (rewardAreaHorizontalLayoutModule.IsNecessaryToIncreaseLayout(rewardContainer.Keys.Count))
+            {
+                rewardAreaHorizontalLayoutModule.IncreaseLayoutWidth();
+            }
+            
+            rewardAreaHorizontalLayoutModule.TryFocusIndex(rewardContainer.Keys.Count,
+                rewardContainer.Keys.ToList().IndexOf(id),onComplete);
+        }
+
         public void UpdateItem(string id, int amount)
         {
             if (rewardContainer.ContainsKey(id))
             {
                 rewardContainer[id] += amount;
                 rewardAreaModuleSpawner.UpdateContent(id, rewardContainer[id]);
+              
             }
             else
             {
@@ -86,6 +102,7 @@ namespace SpinnerGame.RewardArea
         {
             rewardContainer?.Clear();
             rewardAreaModuleSpawner.DestroyCreatedRewardUIs();
+            rewardAreaHorizontalLayoutModule.ResetSize();
         }
 
         private void ClaimRewardArea()
