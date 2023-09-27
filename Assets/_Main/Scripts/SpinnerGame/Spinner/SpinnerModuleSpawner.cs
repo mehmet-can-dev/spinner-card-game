@@ -27,8 +27,8 @@ namespace SpinnerGame.Spinner
 
         public void CreateTier(int tier, SpinnerSettingsSO spinnerSettingsSo)
         {
-            var _tier = ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, tier);
-            var spinnerTypeSo = spinnerSettingsSo.spinnerTypes[_tier];
+            var _tier = ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypeList, tier);
+            var spinnerTypeSo = spinnerSettingsSo.spinnerTypeList[_tier];
 
             CreateSpinner(spinnerTypeSo.spinnerSprite, spinnerTypeSo.indicatorSprite);
 

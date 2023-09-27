@@ -35,8 +35,8 @@ namespace SpinnerGame.Test
             {
                 reachCount++;
 
-                var _reachCount = ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, reachCount);
-                contents = SpinnerLogic.SelectContentsLogic(spinnerSettingsSo.spinnerTypes[_reachCount]);
+                var _reachCount = ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypeList, reachCount);
+                contents = SpinnerLogic.SelectContentsLogic(spinnerSettingsSo.spinnerTypeList[_reachCount]);
                 SpinnerLogic.ShuffleLogic(contents);
 
                 index = SpinnerLogic.SelectTargetIndexLogic();
@@ -104,8 +104,8 @@ namespace SpinnerGame.Test
                 {
                     reachCount++;
 
-                    var _reachCount = ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, reachCount);
-                    contents = SpinnerLogic.SelectContentsLogic(spinnerSettingsSo.spinnerTypes[_reachCount]);
+                    var _reachCount = ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypeList, reachCount);
+                    contents = SpinnerLogic.SelectContentsLogic(spinnerSettingsSo.spinnerTypeList[_reachCount]);
                     SpinnerLogic.ShuffleLogic(contents);
 
                     index = SpinnerLogic.SelectTargetIndexLogic();

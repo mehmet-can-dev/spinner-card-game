@@ -8,7 +8,7 @@ namespace SpinnerGame.Test
     {
         public static SpinnerSettingsSO LoadSpinnerSettings()
         {
-            string scriptableObjectName = "SpinnerSettings";
+            string scriptableObjectName = "Mono_SpinnerSettings";
             string[] guids = AssetDatabase.FindAssets($"t:{nameof(SpinnerSettingsSO)} {scriptableObjectName}");
             if (guids.Length == 0)
                 Assert.Fail($"No {nameof(SpinnerSettingsSO)} found named {scriptableObjectName}");
@@ -22,7 +22,7 @@ namespace SpinnerGame.Test
 
         public static  SpinnerContentBombSO LoadBombSO()
         {
-            string scriptableObjectName = "SpinnerContent_Bomb";
+            string scriptableObjectName = "Mono_SpinnerContent_Bomb";
             string[] guids = AssetDatabase.FindAssets($"t:{nameof(SpinnerContentBombSO)} {scriptableObjectName}");
             if (guids.Length == 0)
                 Assert.Fail($"No {nameof(SpinnerContentBombSO)} found named {scriptableObjectName}");
@@ -36,7 +36,7 @@ namespace SpinnerGame.Test
 
         public static  SpinnerSeedSettingsSO LoadSeedSO()
         {
-            string scriptableObjectName = "Spinner_SeedSettings";
+            string scriptableObjectName = "Mono_Spinner_SeedSettings";
             string[] guids = AssetDatabase.FindAssets($"t:{nameof(SpinnerSeedSettingsSO)} {scriptableObjectName}");
             if (guids.Length == 0)
                 Assert.Fail($"No {nameof(SpinnerSeedSettingsSO)} found named {scriptableObjectName}");

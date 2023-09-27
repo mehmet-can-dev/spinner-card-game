@@ -10,9 +10,7 @@ namespace SpinnerGame.Spinner
         public new void Init(string id, Sprite sprite, int? amount = null)
         {
             this.id = id;
-
             SetSprite(sprite, IMAGEMAXHEIGHT, IMAGEMAXWIDTH);
-
             SetText(amount);
         }
     }

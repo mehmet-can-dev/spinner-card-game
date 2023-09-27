@@ -12,7 +12,6 @@ namespace SpinnerGame.RewardArea
 
         [Header("Child References")] [SerializeField]
         private RewardCollectButton rewardCollectButton;
-
         private Dictionary<string, int> rewardContainer;
 
         private Action onRewardsCollected;

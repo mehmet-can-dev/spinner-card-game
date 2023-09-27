@@ -68,13 +68,13 @@ namespace SpinnerGame.TierArea
         private void UpdateColors()
         {
             var rightColor = spinnerSettingsSo
-                .spinnerTypes[ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, currentTier)]
+                .spinnerTypeList[ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypeList, currentTier)]
                 .spinnerMainColor;
 
             var leftColor = Color.white;
             if (currentTier - 1 >= 0)
                 leftColor = spinnerSettingsSo
-                    .spinnerTypes[ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypes, currentTier - 1)]
+                    .spinnerTypeList[ListUtilities.GetModdedIndex(spinnerSettingsSo.spinnerTypeList, currentTier - 1)]
                     .spinnerMainColor;
 
             tierAreaModuleColorSetter.SetZoneColor(selectedZoneRight, rightColor);
