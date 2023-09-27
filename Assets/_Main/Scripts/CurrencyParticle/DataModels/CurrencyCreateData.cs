@@ -7,6 +7,6 @@ namespace CurrencyParticle
         public Vector2 spawnPos;
         public Sprite sprite;
         public int spawnCount;
-        public Vector3 targetPos;
+        public Transform targetTransform;
     }
 }

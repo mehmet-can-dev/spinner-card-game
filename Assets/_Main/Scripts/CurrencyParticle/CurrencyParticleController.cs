@@ -16,6 +16,9 @@ namespace CurrencyParticle
         [SerializeField] private Transform parent;
 
         public const int MAXCOUNT = 15;
+        
+        // Magic Animation Curve animation , should be change So
+        private static AnimationCurve movementAnimationCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
         private readonly List<CurrencyParticleUi> activeCurrencyParticles = new();
 
@@ -36,10 +39,11 @@ namespace CurrencyParticle
             Action onComplete = null)
         {
             StartCoroutine(
-                CreateCurrency(currencyCreateData, 150, Ease.Linear, perIconReached, 0, 0.5f, onComplete));
+                CreateCurrency(currencyCreateData, 150, movementAnimationCurve, perIconReached, 0, 0.5f, onComplete));
         }
 
-        private IEnumerator CreateCurrency(CurrencyCreateData currencyCreateData, float force, Ease ease,
+        private IEnumerator CreateCurrency(CurrencyCreateData currencyCreateData, float force,
+            AnimationCurve movementAnimationCurve,
             Action collectAction, float collectDelay = 0f, float movementSpeed = 0.5f,
             Action onComplete = null)
         {
@@ -63,8 +67,8 @@ namespace CurrencyParticle
                 {
                     yield return StartCoroutine(currencyParticle.AddForce(currencyCreateData.spawnPos, rndDir,
                         movementSpeed, collectDelay,
-                        currencyCreateData.targetPos, 0.7f,
-                        ease, rndRot,
+                        currencyCreateData.targetTransform, 0.7f,
+                        movementAnimationCurve, rndRot,
                         0.7f, () =>
                         {
                             activeCurrencyParticles.Remove(currencyParticle);
@@ -77,8 +81,8 @@ namespace CurrencyParticle
                 {
                     StartCoroutine(currencyParticle.AddForce(currencyCreateData.spawnPos, rndDir, movementSpeed,
                         collectDelay,
-                        currencyCreateData.targetPos, 0.7f,
-                        ease, rndRot,
+                        currencyCreateData.targetTransform, 0.7f,
+                        movementAnimationCurve, rndRot,
                         0.7f, () =>
                         {
                             activeCurrencyParticles.Remove(currencyParticle);

@@ -29,13 +29,13 @@ namespace SpinnerGame
         {
             //Todo avoid horizontal group position latency
             yield return new WaitForEndOfFrame();
-            var targetPos = rewardAreaBase.GetRewardUiPosition(rwData.itemId);
+            var targetTransform = rewardAreaBase.GetRewardUiTransform(rwData.itemId);
 
             CurrencyCreateData currencyCreateData = new CurrencyCreateData()
             {
                 spawnPos = spinnerContentUi.transform.position,
                 spawnCount = Mathf.Min(rwData.rewardAmount, CurrencyParticleController.MAXCOUNT),
-                targetPos = targetPos,
+                targetTransform = targetTransform,
                 sprite = rwData.itemSprite
             };
 

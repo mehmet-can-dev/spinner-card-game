@@ -44,9 +44,9 @@ namespace SpinnerGame.RewardArea
             rewardCollectButton.SetActive(false, useAnim);
         }
 
-        public Vector3 GetRewardUiPosition(string id)
+        public Transform GetRewardUiTransform(string id)
         {
-            return rewardAreaModuleSpawner.GetRewardUiPosition(id);
+            return rewardAreaModuleSpawner.GetRewardUiTransform(id);
         }
 
         public bool IsRewardedCreated(string id)

@@ -21,9 +21,11 @@ namespace CurrencyParticle
             UiUtilities.SetSizeDeltaFromImageSprite(imgRect, sprite, IMAGEMAXHEIGHT, IMAGEMAXWIDTH);
         }
 
+        // Magic Number animation , should be change
         public IEnumerator AddForce(Vector2 spawnCenter, Vector2 direction, float movementDuration, float collectDelay,
-            Vector2 targetPos,
-            float targetMovementDuration, Ease targetMovementEase, Vector3 targetRotate, float targetRotateDuration,
+            Transform targetTransform,
+            float targetMovementDuration, AnimationCurve targetMovementEase, Vector3 targetRotate,
+            float targetRotateDuration,
             Action collectAction)
         {
             targetMovementDuration *= UnityEngine.Random.Range(1, 1.5f);
@@ -41,9 +43,10 @@ namespace CurrencyParticle
 
             transform.DORotate(Vector3.zero, targetRotateDuration)
                 .SetEase(Ease.Unset);
-            yield return transform.DOMove(targetPos, targetMovementDuration)
-                .SetEase(targetMovementEase)
-                .OnComplete(() => { collectAction?.Invoke(); }).WaitForCompletion();
+
+            yield return TransformUtilities.MoveTransform(transform, targetTransform, targetMovementDuration,
+                targetMovementEase, collectAction);
+            
         }
 
         public void FinishSequence()

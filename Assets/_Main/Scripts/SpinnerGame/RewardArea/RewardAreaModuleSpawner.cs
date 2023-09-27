@@ -34,9 +34,9 @@ namespace SpinnerGame.RewardArea
             content.SetText(amount);
         }
 
-        public Vector3 GetRewardUiPosition(string id)
+        public Transform GetRewardUiTransform(string id)
         {
-            return createdRewardUiContainer[id].transform.position;
+            return createdRewardUiContainer[id].transform;
         }
 
         public void DestroyCreatedRewardUIs()
