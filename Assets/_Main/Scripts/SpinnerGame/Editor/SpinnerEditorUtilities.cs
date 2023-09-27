@@ -1,17 +1,20 @@
-using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
-namespace SpinnerGame.Test
+#if UNITY_EDITOR
+
+
+namespace SpinnerGame.Spinner.Editor
 {
-    public static class SpinnerTestUtilities
+    public static class SpinnerEditorUtilities
     {
+        // This methods can be generic
         public static SpinnerSettingsSO LoadSpinnerSettings()
         {
             string scriptableObjectName = "Mono_SpinnerSettings";
             string[] guids = AssetDatabase.FindAssets($"t:{nameof(SpinnerSettingsSO)} {scriptableObjectName}");
             if (guids.Length == 0)
-                Assert.Fail($"No {nameof(SpinnerSettingsSO)} found named {scriptableObjectName}");
+                Debug.LogError($"No {nameof(SpinnerSettingsSO)} found named {scriptableObjectName}");
             if (guids.Length > 1)
                 Debug.LogWarning(
                     $"More than one {nameof(SpinnerSettingsSO)} found named {scriptableObjectName}, taking first one");
@@ -20,12 +23,12 @@ namespace SpinnerGame.Test
                 typeof(SpinnerSettingsSO));
         }
 
-        public static  SpinnerContentBombSO LoadBombSO()
+        public static SpinnerContentBombSO LoadBombSettings()
         {
             string scriptableObjectName = "Mono_SpinnerContent_Bomb";
             string[] guids = AssetDatabase.FindAssets($"t:{nameof(SpinnerContentBombSO)} {scriptableObjectName}");
             if (guids.Length == 0)
-                Assert.Fail($"No {nameof(SpinnerContentBombSO)} found named {scriptableObjectName}");
+                Debug.LogError($"No {nameof(SpinnerContentBombSO)} found named {scriptableObjectName}");
             if (guids.Length > 1)
                 Debug.LogWarning(
                     $"More than one {nameof(SpinnerContentBombSO)} found named {scriptableObjectName}, taking first one");
@@ -34,12 +37,12 @@ namespace SpinnerGame.Test
                 typeof(SpinnerContentBombSO));
         }
 
-        public static  SpinnerSeedSettingsSO LoadSeedSO()
+        public static SpinnerSeedSettingsSO LoadSeedSettings()
         {
             string scriptableObjectName = "Mono_Spinner_SeedSettings";
             string[] guids = AssetDatabase.FindAssets($"t:{nameof(SpinnerSeedSettingsSO)} {scriptableObjectName}");
             if (guids.Length == 0)
-                Assert.Fail($"No {nameof(SpinnerSeedSettingsSO)} found named {scriptableObjectName}");
+                Debug.LogError($"No {nameof(SpinnerSeedSettingsSO)} found named {scriptableObjectName}");
             if (guids.Length > 1)
                 Debug.LogWarning(
                     $"More than one {nameof(SpinnerSeedSettingsSO)} found named {scriptableObjectName}, taking first one");
@@ -49,3 +52,5 @@ namespace SpinnerGame.Test
         }
     }
 }
+
+#endif

@@ -5,7 +5,7 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "SpinnerGame",
-        "GlobalAssembly"
+        "MainAssembly"
     ],
     "includePlatforms": [
         "Editor"

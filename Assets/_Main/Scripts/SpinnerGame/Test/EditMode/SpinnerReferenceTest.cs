@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using SpinnerGame.Spinner.Editor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -10,23 +11,29 @@ namespace SpinnerGame.Test
         [Test]
         public void Simple50CountTest()
         {
-            var spinnerSettingsSo = SpinnerTestUtilities.LoadSpinnerSettings();
+            var spinnerSettingsSo = SpinnerEditorUtilities.LoadSpinnerSettings();
             Assert.AreEqual(spinnerSettingsSo.spinnerTypeList.Count, 50);
         }
 
         [Test]
         public void SimpleContentsCountTest()
         {
-            var spinnerSettingsSo = SpinnerTestUtilities.LoadSpinnerSettings();
-            var contents = SpinnerLogic.SelectContentsLogic(spinnerSettingsSo.spinnerTypeList[0]);
-            Assert.AreEqual(contents.Count, SpinnerLogic.HOLECOUNT);
+            var spinnerSettingsSo = SpinnerEditorUtilities.LoadSpinnerSettings();
+            for (int i = 0; i < spinnerSettingsSo.spinnerTypeList.Count; i++)
+            {
+                var contents = SpinnerLogic.SelectContentsLogic(spinnerSettingsSo.spinnerTypeList[i]);
+                if (contents.Count != SpinnerLogic.HOLECOUNT)
+                    Assert.Fail();
+            }
+
+            Assert.Pass();
         }
 
         [Test]
         public void CheckSoReferences()
         {
-            var spinnerSettingsSo = SpinnerTestUtilities.LoadSpinnerSettings();
-           
+            var spinnerSettingsSo = SpinnerEditorUtilities.LoadSpinnerSettings();
+
             LogAssert.Expect(LogType.Exception, "Exception");
 
             for (int i = 0; i < spinnerSettingsSo.spinnerTypeList.Count; i++)

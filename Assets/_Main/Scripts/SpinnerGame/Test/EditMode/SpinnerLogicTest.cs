@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
-using SpinnerGame;
-using UnityEditor;
+using SpinnerGame.Spinner.Editor;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Random = UnityEngine.Random;
@@ -18,9 +16,9 @@ namespace SpinnerGame.Test
         [Test]
         public void Reach2048Test()
         {
-            var spinnerSettingsSo = SpinnerTestUtilities.LoadSpinnerSettings();
-            var bombSo = SpinnerTestUtilities.LoadBombSO();
-            var seedSo = SpinnerTestUtilities.LoadSeedSO();
+            var spinnerSettingsSo = SpinnerEditorUtilities.LoadSpinnerSettings();
+            var bombSo = SpinnerEditorUtilities.LoadBombSettings();
+            var seedSo = SpinnerEditorUtilities.LoadSeedSettings();
             SpinnerLogic.SetSeed(seedSo);
 
             List<SpinnerContentSO> contents;
@@ -86,8 +84,8 @@ namespace SpinnerGame.Test
         {
             var reachTarget = 100;
 
-            var spinnerSettingsSo =  SpinnerTestUtilities.LoadSpinnerSettings();
-            var bombSo = SpinnerTestUtilities.LoadBombSO();
+            var spinnerSettingsSo =  SpinnerEditorUtilities.LoadSpinnerSettings();
+            var bombSo = SpinnerEditorUtilities.LoadBombSettings();
             List<SpinnerContentSO> contents;
 
             int seed = 0;

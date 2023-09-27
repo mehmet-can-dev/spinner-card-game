@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7a433436244ab1a7c07cb5c208414d, type: 3}
   m_Name: Mono_Spinner_SeedSettings
   m_EditorClassIdentifier: 
-  useSeed: 1
-  seed: 1489782
+  useSeed: 0
+  seed: 0
