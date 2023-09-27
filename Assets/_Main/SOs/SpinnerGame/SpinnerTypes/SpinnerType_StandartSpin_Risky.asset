@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4ae73c3f564571b754690e4f18cb06, type: 3}
   m_Name: SpinnerType_StandartSpin_Risky
   m_EditorClassIdentifier: 
-  id: standar_spinner
+  id: standar_spinner_risky
   spinnerSprite: {fileID: 21300000, guid: 605e384b80f4ab145bdee0095eaaf7d9, type: 3}
   indicatorSprite: {fileID: 21300000, guid: 0f1db569b1e7ff84db447acf61e08863, type: 3}
   spinnerMainColor: {r: 1, g: 0.16509432, b: 0.16509432, a: 1}
