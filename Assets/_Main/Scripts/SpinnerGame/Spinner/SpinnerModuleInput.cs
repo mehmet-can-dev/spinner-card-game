@@ -10,12 +10,12 @@ namespace SpinnerGame.Spinner
     [RequireComponent(typeof(Graphic))]
     public class SpinnerModuleInput : MonoBehaviour, IPointerClickHandler
     {
-        [Header("Child References")] [SerializeField]
-        private GameObject spinButtonObject;
-
         private Action _onClick;
         private bool isActive;
-
+        
+        [Header("Child References")] [SerializeField]
+        private GameObject spinButtonObject;
+        
         public void Init(Action OnClick)
         {
             _onClick = OnClick;

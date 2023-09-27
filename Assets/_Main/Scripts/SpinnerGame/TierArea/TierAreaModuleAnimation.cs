@@ -6,11 +6,12 @@ namespace SpinnerGame.TierArea
 {
     public class TierAreaModuleAnimation : MonoBehaviour
     {
+        // Single padding amount
+        private const float SLIDERRECTSLIDEAMOUNT = 120;
+        
         [Header("Project Reference")] [SerializeField]
         private TierAreaSlidingAnimationSettingsSO tierAreaSlidingAnimationSettingsSo;
-
-        private const float SLIDERRECTSLIDEAMOUNT = 120;
-
+        
         public void Init()
         {
         }

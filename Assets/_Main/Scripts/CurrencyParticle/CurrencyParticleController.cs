@@ -10,11 +10,6 @@ namespace CurrencyParticle
 //ToDo must be connect dependency injection system
     public class CurrencyParticleController : Singleton<CurrencyParticleController>
     {
-        [Header("References")] [SerializeField]
-        private CurrencyParticleUi currencyParticleUiPrefab;
-
-        [SerializeField] private Transform parent;
-
         public const int MAXCOUNT = 15;
         
         // Magic Animation Curve animation , should be change So
@@ -23,7 +18,13 @@ namespace CurrencyParticle
         private readonly List<CurrencyParticleUi> activeCurrencyParticles = new();
 
         private readonly Queue<CurrencyParticleUi> pooledCurrencyParticles = new();
-
+        
+        [Header("Project References")] [SerializeField]
+        private CurrencyParticleUi currencyParticleUiPrefab;
+        [Header("Child References")]
+        [SerializeField] private Transform parent;
+        
+        
         private void Start()
         {
             // possibility of being called too many times instantiate max count * 2 
@@ -100,12 +101,6 @@ namespace CurrencyParticle
             onComplete?.Invoke();
         }
 
-        public void CompleteCurrencyParticle()
-        {
-            for (int i = 0; i < activeCurrencyParticles.Count; i++)
-            {
-                activeCurrencyParticles[i].FinishSequence();
-            }
-        }
+       
     }
 }

@@ -158,7 +158,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8063255250792686833}
   m_HandleRect: {fileID: 8063255250792686834}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 8063255248753774804}
   - component: {fileID: 8063255248753774805}
   - component: {fileID: 8063255248753774806}
+  - component: {fileID: 1158484268}
   m_Layer: 5
   m_Name: ui_scrollview_rewards_panel
   m_TagString: Untagged
@@ -190,7 +191,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8063255248753774800}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -274,6 +275,48 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1158484268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8063255248753774800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7558314da2d84f97a20a7685fece8a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalLayoutGroup: {fileID: 8063255249855344872}
+  scrollRect: {fileID: 8063255248753774806}
+  horizontalLayoutGroupContent: {fileID: 8063255249855344873}
+  rewardAreaRewardUiPrefabRectTransform: {fileID: 4525660087352970624, guid: 4efe718fef1188643b150e9357ed5ed4, type: 3}
+  viewScrollAnimation:
+    duration: 0.5
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
 --- !u!1 &8063255249091598086
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,10 +352,10 @@ RectTransform:
   m_Father: {fileID: 8063255248753774807}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 3}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 84}
+  m_SizeDelta: {x: 1150, y: 171}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8063255249091598106
 CanvasRenderer:
@@ -562,8 +605,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8063255249214102651}
   m_HandleRect: {fileID: 8063255249214102628}
   m_Direction: 2
-  m_Value: 0.5000003
-  m_Size: 0.7596821
+  m_Value: 916.3871
+  m_Size: 0.9941864
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -602,9 +645,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 575, y: 0}
-  m_SizeDelta: {x: 1150, y: 224}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.0002040863, y: -915.83124}
+  m_SizeDelta: {x: 1150.0001, y: 172}
+  m_Pivot: {x: -0.000000026077032, y: 0.5}
 --- !u!114 &8063255249855344872
 MonoBehaviour:
   m_ObjectHideFlags: 0

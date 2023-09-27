@@ -6,6 +6,9 @@ namespace SpinnerGame.TierArea
 {
     public class TierAreaBase : MonoBehaviour
     {
+        private int currentTier = 0;
+        private SpinnerSettingsSO spinnerSettingsSo;
+
         [Header("Module References")] [SerializeField]
         private TierAreaModuleFiller tierAreaModuleFiller;
 
@@ -19,11 +22,7 @@ namespace SpinnerGame.TierArea
         [SerializeField] private TierAreaZoneUi selectedZoneRight;
         [SerializeField] private TierAreaZoneUi selectedZoneLeft;
 
-        private int currentTier = 0;
-
         public int CurrentTier => currentTier;
-
-        private SpinnerSettingsSO spinnerSettingsSo;
 
         public void Init(SpinnerSettingsSO spinnerSettingsSo)
         {

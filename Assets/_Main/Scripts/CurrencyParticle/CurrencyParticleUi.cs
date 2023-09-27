@@ -11,6 +11,7 @@ namespace CurrencyParticle
         private const int IMAGEMAXWIDTH = 100;
         private const int IMAGEMAXHEIGHT = 100;
 
+        [Header("Child References")]
         [SerializeField] private Image imgCurrency;
         [SerializeField] private RectTransform imgRect;
 
@@ -47,10 +48,6 @@ namespace CurrencyParticle
             yield return TransformUtilities.MoveTransform(transform, targetTransform, targetMovementDuration,
                 targetMovementEase, collectAction);
             
-        }
-
-        public void FinishSequence()
-        {
         }
     }
 }

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8379822462191861659}
   - component: {fileID: 8379822462191861658}
   - component: {fileID: 8379822462191861653}
-  - component: {fileID: 8855000599311270019}
   m_Layer: 5
   m_Name: ui_parent_rewards_panel
   m_TagString: Untagged
@@ -63,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewardAreaModuleSpawner: {fileID: 8379822462191861653}
-  rewardAreaHorizontalLayoutModule: {fileID: 0}
+  rewardAreaScrollView: {fileID: 1994377530210846010}
   rewardCollectButton: {fileID: 8379822463506226272}
 --- !u!114 &8379822462191861653
 MonoBehaviour:
@@ -79,21 +78,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rewardAreaRewardUiPrefab: {fileID: 1224840894390800285, guid: 4efe718fef1188643b150e9357ed5ed4, type: 3}
   contentParent: {fileID: 8379822462092600575}
---- !u!114 &8855000599311270019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8379822462191861657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7558314da2d84f97a20a7685fece8a39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontalLayoutGroup: {fileID: 8379822462092600574}
-  horizontalLayoutGroupContent: {fileID: 8379822462092600575}
-  rewardAreaRewardUiPrefabRectTransform: {fileID: 4525660087352970624, guid: 4efe718fef1188643b150e9357ed5ed4, type: 3}
 --- !u!1001 &1994377531233408022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,14 +85,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8379822462191861656}
     m_Modifications:
-    - target: {fileID: 8063255248724306814, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_Size
-      value: 0.9999999
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255248724306814, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8063255248753774800, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
       propertyPath: m_Name
       value: ui_scrollview_rewards_panel
@@ -197,30 +173,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8063255249091598085, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255249091598085, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255249091598085, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255249091598085, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1150
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255249091598085, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 171
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255249091598085, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 84
-      objectReference: {fileID: 0}
     - target: {fileID: 8063255249214102628, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -232,30 +184,6 @@ PrefabInstance:
     - target: {fileID: 8063255249214102628, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255249274959208, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_Size
-      value: 0.99418604
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255249274959208, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_Value
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255249855344873, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_Pivot.x
-      value: -0.000000026077032
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255249855344873, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1150.0001
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255249855344873, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 172
-      objectReference: {fileID: 0}
-    - target: {fileID: 8063255249855344873, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.00018310547
       objectReference: {fileID: 0}
     - target: {fileID: 8063255250792686834, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
       propertyPath: m_AnchorMax.x
@@ -267,15 +195,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
---- !u!114 &8379822462092600574 stripped
+--- !u!114 &1994377530210846010 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8063255249855344872, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1158484268, guid: 418ee83ef4c4a054aaf0069c0f5628fa, type: 3}
   m_PrefabInstance: {fileID: 1994377531233408022}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 7558314da2d84f97a20a7685fece8a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &8379822462092600575 stripped

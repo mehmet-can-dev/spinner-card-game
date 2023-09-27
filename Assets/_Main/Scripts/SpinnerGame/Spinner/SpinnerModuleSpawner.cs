@@ -6,7 +6,10 @@ namespace SpinnerGame.Spinner
 {
     public class SpinnerModuleSpawner : MonoBehaviour
     {
-        private float DISTANCEFROMCENTER = 150;
+        private const float DISTANCEFROMCENTER = 150;
+
+        private List<SpinnerContentUi> createdSpinnerContentUis;
+        private List<ItemData> createdItemData;
 
         [Header("Child References")] [SerializeField]
         private Image uiSpinnerImage;
@@ -16,9 +19,6 @@ namespace SpinnerGame.Spinner
 
         [Header("Project References")] [SerializeField]
         private SpinnerContentUi contentUiPrefab;
-
-        private List<SpinnerContentUi> createdSpinnerContentUis;
-        private List<ItemData> createdItemData;
 
         public void Init()
         {
@@ -39,6 +39,22 @@ namespace SpinnerGame.Spinner
             createdItemData = CalculateRewards(createdSpinnerContentUis, contents, _tier);
 
             FillContentUIs(createdSpinnerContentUis, createdItemData);
+        }
+
+        public ItemData GetRewardDataFromIndex(int index)
+        {
+            if (index >= createdItemData.Count)
+                Debug.LogError("Index must be lower created reward count");
+
+            return createdItemData[index];
+        }
+
+        public SpinnerContentUi GetContentUiFromIndex(int index)
+        {
+            if (index >= createdSpinnerContentUis.Count)
+                Debug.LogError("Index must be lower created content ui count");
+
+            return createdSpinnerContentUis[index];
         }
 
         private static List<ItemData> CalculateRewards(List<SpinnerContentUi> contentUis,
@@ -81,21 +97,6 @@ namespace SpinnerGame.Spinner
             return itemList;
         }
 
-        public ItemData GetRewardDataFromIndex(int index)
-        {
-            if (index >= createdItemData.Count)
-                Debug.LogError("Index must be lower created reward count");
-
-            return createdItemData[index];
-        }
-
-        public SpinnerContentUi GetContentUiFromIndex(int index)
-        {
-            if (index >= createdSpinnerContentUis.Count)
-                Debug.LogError("Index must be lower created content ui count");
-
-            return createdSpinnerContentUis[index];
-        }
 
         private List<SpinnerContentUi> InstantiateContents()
         {

@@ -6,8 +6,12 @@ using UnityEngine.UI;
 
 namespace SpinnerGame.RewardArea
 {
-    public class RewardAreaHorizontalLayoutModule : MonoBehaviour
+    public class RewardAreaScrollView : MonoBehaviour
     {
+        private int fitRewardUiCount;
+        private float currentHorizontalValue = 0;
+        private float lastHorizontalValue = 0;
+
         [Header("Child References")] [SerializeField]
         private HorizontalLayoutGroup horizontalLayoutGroup;
 
@@ -22,10 +26,6 @@ namespace SpinnerGame.RewardArea
         [Header("AnimationSettings")] [SerializeField]
         private RewardAreaViewScrollAnimation viewScrollAnimation;
 
-        private int fitRewardUiCount;
-        private float currentHorizontalValue = 0;
-        private float lastHorizontalValue = 0;
-
         public void Init()
         {
             layoutGroupContentStartSize = GetLayoutGroupContentSize();
@@ -34,13 +34,6 @@ namespace SpinnerGame.RewardArea
                                       horizontalLayoutGroup.spacing));
 
             currentHorizontalValue = scrollRect.horizontalScrollbar.value;
-        }
-
-        public bool IsNecessaryToIncreaseLayout(int uniqRewardCount)
-        {
-            if (uniqRewardCount >= fitRewardUiCount)
-                return true;
-            return false;
         }
 
         public void TryFocusIndex(int totalRewardUiCount, int focusRewardUiIndex)
@@ -58,11 +51,6 @@ namespace SpinnerGame.RewardArea
             }
         }
 
-        public void ResetSize()
-        {
-            SetLayoutGroupContentSize(layoutGroupContentStartSize);
-        }
-
         public void IncreaseLayoutWidth()
         {
             var increaseAmount = rewardAreaRewardUiPrefabRectTransform.sizeDelta.x + horizontalLayoutGroup.spacing;
@@ -70,8 +58,18 @@ namespace SpinnerGame.RewardArea
             size.x += increaseAmount;
             SetLayoutGroupContentSize(size);
             fitRewardUiCount++;
-            Debug.Log("increaseAmount " + increaseAmount);
-            Debug.Log("size " + size);
+        }
+
+        public bool IsNecessaryToIncreaseLayout(int uniqRewardCount)
+        {
+            if (uniqRewardCount >= fitRewardUiCount)
+                return true;
+            return false;
+        }
+
+        public void ResetSize()
+        {
+            SetLayoutGroupContentSize(layoutGroupContentStartSize);
         }
 
         private void SetLayoutGroupContentSize(Vector2 targetSize)

@@ -2,68 +2,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SpinnerGame.RewardArea
 {
     public class RewardAreaBase : MonoBehaviour
     {
+        private Dictionary<string, int> rewardContainer;
+        private Action onRewardsCollected;
+        
         [Header("Module References")] [SerializeField]
         private RewardAreaModuleSpawner rewardAreaModuleSpawner;
-
-        [SerializeField] private RewardAreaHorizontalLayoutModule rewardAreaHorizontalLayoutModule;
-
+        
         [Header("Child References")] [SerializeField]
-        private RewardCollectButton rewardCollectButton;
-
-        private Dictionary<string, int> rewardContainer;
-
-        private Action onRewardsCollected;
-
+        private RewardAreaScrollView rewardAreaScrollView;
+        [SerializeField] private RewardCollectButton rewardCollectButton;
+        
         public void Init(Action onRewardsCollected)
         {
             this.onRewardsCollected = onRewardsCollected;
             rewardCollectButton.Init(CollectRewards);
-            rewardAreaHorizontalLayoutModule.Init();
+            rewardAreaScrollView.Init();
             CloseRewardButton(false);
-        }
-
-        private void CollectRewards()
-        {
-            CloseRewardButton(true);
-            ClaimRewardArea();
-            onRewardsCollected?.Invoke();
-        }
-
-        public void OpenRewardButton(bool useAnim)
-        {
-            rewardCollectButton.SetActive(true, useAnim);
-        }
-
-        public void CloseRewardButton(bool useAnim)
-        {
-            rewardCollectButton.SetActive(false, useAnim);
-        }
-
-        public Transform GetRewardUiTransform(string id)
-        {
-            return rewardAreaModuleSpawner.GetRewardUiTransform(id);
-        }
-
-        public bool IsRewardedCreated(string id)
-        {
-            if (rewardContainer == null)
-                return false;
-            return rewardContainer.ContainsKey(id);
         }
 
         public void UpdateView(string id)
         {
-            if (rewardAreaHorizontalLayoutModule.IsNecessaryToIncreaseLayout(rewardContainer.Keys.Count))
+            if (rewardAreaScrollView.IsNecessaryToIncreaseLayout(rewardContainer.Keys.Count))
             {
-                rewardAreaHorizontalLayoutModule.IncreaseLayoutWidth();
+                rewardAreaScrollView.IncreaseLayoutWidth();
             }
-            
-            rewardAreaHorizontalLayoutModule.TryFocusIndex(rewardContainer.Keys.Count,
+
+            rewardAreaScrollView.TryFocusIndex(rewardContainer.Keys.Count,
                 rewardContainer.Keys.ToList().IndexOf(id));
         }
 
@@ -73,7 +43,6 @@ namespace SpinnerGame.RewardArea
             {
                 rewardContainer[id] += amount;
                 rewardAreaModuleSpawner.UpdateContent(id, rewardContainer[id]);
-              
             }
             else
             {
@@ -96,15 +65,43 @@ namespace SpinnerGame.RewardArea
                 Debug.LogError("Rewarded Item Data Already Created");
             }
         }
-
-        [ContextMenu("Clear")]
+        
         public void ClearRewardArea()
         {
             rewardContainer?.Clear();
             rewardAreaModuleSpawner.DestroyCreatedRewardUIs();
-            rewardAreaHorizontalLayoutModule.ResetSize();
+            rewardAreaScrollView.ResetSize();
+        }
+        
+        public bool IsRewardedCreated(string id)
+        {
+            if (rewardContainer == null)
+                return false;
+            return rewardContainer.ContainsKey(id);
+        }
+        
+        public void OpenRewardButton(bool useAnim)
+        {
+            rewardCollectButton.SetActive(true, useAnim);
         }
 
+        public void CloseRewardButton(bool useAnim)
+        {
+            rewardCollectButton.SetActive(false, useAnim);
+        }
+
+        public Transform GetRewardUiTransform(string id)
+        {
+            return rewardAreaModuleSpawner.GetRewardUiTransform(id);
+        }
+
+        private void CollectRewards()
+        {
+            CloseRewardButton(true);
+            ClaimRewardArea();
+            onRewardsCollected?.Invoke();
+        }
+        
         private void ClaimRewardArea()
         {
             //Todo write claim functions temporary reset Reward Area

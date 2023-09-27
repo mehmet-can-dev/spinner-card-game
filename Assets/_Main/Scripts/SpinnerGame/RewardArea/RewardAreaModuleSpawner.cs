@@ -6,14 +6,14 @@ namespace SpinnerGame.RewardArea
 
     public class RewardAreaModuleSpawner : MonoBehaviour
     {
+        private Dictionary<string, RewardAreaRewardUi> createdRewardUiContainer;
+        
         [Header("Project References")] [SerializeField]
         private RewardAreaRewardUi rewardAreaRewardUiPrefab;
 
         [Header("Child References")] [SerializeField]
         private RectTransform contentParent;
-
-        private Dictionary<string, RewardAreaRewardUi> createdRewardUiContainer;
-
+        
         public void SpawnContent(RewardItemData rewardItemData)
         {
             if (createdRewardUiContainer == null)

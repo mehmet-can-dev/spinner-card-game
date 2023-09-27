@@ -5,7 +5,6 @@ namespace SpinnerGame.RewardArea
 
     public class RewardAreaRewardUi : ContentUiBase
     {
-
         private const int IMAGEMAXWIDTH = 100;
         private const int IMAGEMAXHEIGHT = 100;
 

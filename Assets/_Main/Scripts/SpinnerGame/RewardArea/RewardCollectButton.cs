@@ -4,14 +4,13 @@ using UnityEngine.EventSystems;
 
 namespace SpinnerGame.RewardArea
 {
-
     public class RewardCollectButton : MonoBehaviour, IPointerClickHandler
     {
-        [Header("Module References")] [SerializeField]
-        private RewardCollectButtonModuleAnimation rewardCollectButtonModuleAnimation;
-
         private Action onClicked;
         private bool isActive = true;
+
+        [Header("Module References")] [SerializeField]
+        private RewardCollectButtonModuleAnimation rewardCollectButtonModuleAnimation;
 
         public void Init(Action onClicked)
         {

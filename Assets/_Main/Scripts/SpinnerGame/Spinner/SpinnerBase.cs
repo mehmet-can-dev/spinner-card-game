@@ -3,18 +3,17 @@ using UnityEngine;
 
 namespace SpinnerGame.Spinner
 {
-
     public class SpinnerBase : MonoBehaviour
     {
+        private Action<ItemData, SpinnerContentUi> onSpinEnded;
+        private Action onSpinStarted;
+
         [Header("Module References")] [SerializeField]
         private SpinnerModuleAnimation spinnerModuleAnimation;
 
         [SerializeField] private SpinnerModuleSpawner spinnerModuleSpawner;
         [SerializeField] private SpinnerModuleInput spinnerModuleInput;
-
-        private Action<ItemData, SpinnerContentUi> onSpinEnded;
-        private Action onSpinStarted;
-
+        
         public void Init()
         {
             spinnerModuleAnimation.Init();
